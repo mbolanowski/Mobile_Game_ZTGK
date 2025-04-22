@@ -37,7 +37,7 @@ public class SwipeDash : MonoBehaviour
     void Update()
     {
         HandleTouchInput();
-        Shoot();
+        //Shoot();
     }
 
     void FixedUpdate()
