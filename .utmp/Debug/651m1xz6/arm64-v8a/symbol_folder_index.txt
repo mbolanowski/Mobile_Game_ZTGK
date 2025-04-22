@@ -1,0 +1,1 @@
+C:\Users\Mateusz\source\repos\Mobile_Game_ZTGK\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\build\intermediates\cxx\Debug\651m1xz6\obj\arm64-v8a
