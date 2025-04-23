@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         playerTransform = player.transform;
-        Debug.Log(playerTransform.position);
+        //Debug.Log(playerTransform.position);
         RotateTowardsPlayer();
         ShootAtPlayer();
     }
