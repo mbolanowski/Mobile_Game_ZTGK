@@ -2498,11 +2498,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSwipe: 25
-  WorldWidth: 1
+  WorldWidth: 5.6
   WorldHeight: 0
-  XMargin: 5
-  YMargin: 5
-  BoxHeight: 300
+  XMargin: 25
+  YMargin: 25
+  BoxHeight: 600
   MoveDelay: 0.1
   moveSpeedCurve:
     serializedVersion: 2
