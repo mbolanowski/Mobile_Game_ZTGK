@@ -87,15 +87,15 @@ public class InvisibleSliderMovement : MonoBehaviour
         }
         Vector3 currentPos = rb.position;
         Vector3 offset = new Vector3(-xPos, yPos, 0);
-        Vector3 dest = CanUseWholeScreen ? offset  : centerPos + offset;
-        Vector3 dir = CanUseWholeScreen ? (dest - currentPos) : offset;
+        Vector3 dest = CanUseWholeScreen ? offset + new Vector3(0,0,1.19f)  : centerPos + offset;
+        Vector3 dir = (dest - currentPos);
         dir.Normalize();
         MoveTime += Time.fixedDeltaTime;
         float t = MoveTime / MoveDelay;
         float curveValue = moveSpeedCurve.Evaluate(t);
-        dir *= curveValue * maxSpeed * Time.deltaTime;
+        dir *= curveValue * maxSpeed * Time.fixedDeltaTime;
         Vector3 finalNewPos;
-        if ((dest - currentPos).magnitude <= dir.magnitude)
+        if ((dest - currentPos).magnitude <= dir.magnitude || (dest - currentPos).magnitude <= minimumDIstance)
         {
             finalNewPos = dest;
             moving = false;
