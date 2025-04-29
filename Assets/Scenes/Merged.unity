@@ -1187,7 +1187,7 @@ MonoBehaviour:
   Surfers: {fileID: 1628430533}
   InvisibleSliderMove: {fileID: 1628430534}
   Plane: {fileID: 1617172126}
-  indexLimit: 4
+  indexLimit: 5
 --- !u!4 &561578247
 Transform:
   m_ObjectHideFlags: 0
@@ -2584,6 +2584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4afc4af29af35f54692ba2e9185aa37a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CanUseWholeScreen: 0
   Plane: {fileID: 1617172126}
   minSwipe: 25
   WorldWidth: 5.6

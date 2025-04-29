@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class InvisibleSliderMovement : MonoBehaviour
 {
+    public bool CanUseWholeScreen = false;
+
     public GameObject Plane;
 
     Vector3 targetPos;
@@ -29,6 +31,7 @@ public class InvisibleSliderMovement : MonoBehaviour
 
     public float MoveDelay;
     private float MoveTime;
+    private float ScreenRatio;
 
     public AnimationCurve moveSpeedCurve;
 
@@ -38,7 +41,10 @@ public class InvisibleSliderMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
         centerPos = rb.position;
-        //ScreenWorldHeightRatio = Screen.height / WorldHeight;
+        ScreenRatio = (float)Screen.width / (float)Screen.height;
+        Debug.Log(ScreenRatio);
+        WorldHeight = WorldWidth / ScreenRatio;
+        ScreenWorldHeightRatio = WorldHeight / Screen.height;
         ScreenWorldWidthRatio = WorldWidth/ Screen.width;
         Rectangle = new Rectangle(XMargin, YMargin, Screen.width - 2 * XMargin, BoxHeight);
 
@@ -63,12 +69,23 @@ public class InvisibleSliderMovement : MonoBehaviour
 
     private void Move()
     {
-        if (!Rectangle.Contains((int)endTouchPosition.x, (int)endTouchPosition.y)) return;
-        float xPos = (endTouchPosition.x * ScreenWorldWidthRatio) - 0.5f * WorldWidth;
-        //float yPos = (endTouchPosition.y * ScreenWorldHeightRatio) - 0.5f * WorldHeight;
+        float xPos;
+        float yPos;
+        if (CanUseWholeScreen)
+        {
+            xPos = (endTouchPosition.x * ScreenWorldWidthRatio) - 0.5f * WorldWidth;
+            yPos = (endTouchPosition.y * ScreenWorldHeightRatio) - 0.5f * WorldHeight;
+        }
+        else
+        {
+            if (!Rectangle.Contains((int)endTouchPosition.x, (int)endTouchPosition.y)) return;
+            xPos = (endTouchPosition.x * ScreenWorldWidthRatio) - 0.5f * WorldWidth;
+            yPos = 0;
+
+        }
         Vector3 currentPos = rb.position;
-        Vector3 offset = new Vector3(-xPos, 0, 0);
-        Vector3 newPos = centerPos + offset;
+        Vector3 offset = new Vector3(-xPos, yPos, 0);
+        Vector3 newPos = CanUseWholeScreen ? currentPos + offset  : centerPos + offset;
         MoveTime += Time.fixedDeltaTime;
         float t = MoveTime / MoveDelay;
         float curveValue = moveSpeedCurve.Evaluate(t);

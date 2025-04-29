@@ -24,29 +24,35 @@ public class MovementChangeScript : MonoBehaviour
     private void Change()
     {
         //Disable previous
-        switch(previousIndex)
+        switch (previousIndex)
         {
             case 0:
-             {
+                {
                     LineRenderer.enabled = false;
                     SwipeDash.enabled = false;
                     break;
-             }
+                }
             case 1:
                 {
                     SliderMove.enabled = false;
                     Slider.SetActive(false);
                     break;
                 }
-                case 2:
+            case 2:
                 {
                     Surfers.enabled = false;
-                    break ;
+                    break;
                 }
-                case 3:
+            case 3:
+                {
+                    //InvisibleSliderMove.enabled = false;
+                    Plane.SetActive(false);
+                    break;
+                }
+            case 4:
                 {
                     InvisibleSliderMove.enabled = false;
-                    Plane.SetActive(false);
+                    InvisibleSliderMove.CanUseWholeScreen = false;
                     break;
                 }
         }
@@ -74,6 +80,11 @@ public class MovementChangeScript : MonoBehaviour
                 {
                     InvisibleSliderMove.enabled= true;
                     //Plane.SetActive(true);
+                    break;
+                }
+                case 4:
+                {
+                    InvisibleSliderMove.CanUseWholeScreen = true;
                     break;
                 }
         }
