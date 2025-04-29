@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class InvisibleSliderMovement : MonoBehaviour
 {
+    public GameObject Plane;
+
     Vector3 targetPos;
     Vector3 centerPos;
     private Rigidbody rb;
@@ -39,6 +41,10 @@ public class InvisibleSliderMovement : MonoBehaviour
         //ScreenWorldHeightRatio = Screen.height / WorldHeight;
         ScreenWorldWidthRatio = WorldWidth/ Screen.width;
         Rectangle = new Rectangle(XMargin, YMargin, Screen.width - 2 * XMargin, BoxHeight);
+
+        Vector3 planePos = Plane.transform.position;
+        planePos.y = -9.0f + ((float)(BoxHeight + YMargin) / (float)Screen.height) * 10.0f;
+        Plane.transform.position = planePos;
     }
 
     // Update is called once per frame
@@ -95,7 +101,6 @@ public class InvisibleSliderMovement : MonoBehaviour
                 {
                     moving = true;
                     MoveTime = 0;
-                    Debug.Log(Rectangle);
                 }
             }
         }

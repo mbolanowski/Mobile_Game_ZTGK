@@ -15,6 +15,7 @@ public class MovementChangeScript : MonoBehaviour
 
     //Invisible slider - 3
     public InvisibleSliderMovement InvisibleSliderMove;
+    public GameObject Plane;
 
     int currentIndex = 0;
     int previousIndex = 0;
@@ -45,6 +46,7 @@ public class MovementChangeScript : MonoBehaviour
                 case 3:
                 {
                     InvisibleSliderMove.enabled = false;
+                    Plane.SetActive(false);
                     break;
                 }
         }
@@ -71,6 +73,7 @@ public class MovementChangeScript : MonoBehaviour
                 case 3:
                 {
                     InvisibleSliderMove.enabled= true;
+                    //Plane.SetActive(true);
                     break;
                 }
         }
