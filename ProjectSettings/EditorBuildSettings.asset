@@ -8,12 +8,15 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/FirstPrototype.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SliderTest.unity
     guid: 6120ba0f2c5eb3c44846677f5c1e0142
   - enabled: 0
     path: Assets/Scenes/SubwaySurfers.unity
     guid: 82e0f3d4042a89d49955af3a03d149ad
+  - enabled: 1
+    path: Assets/Scenes/Merged.unity
+    guid: 6e5b18f163998bc479ffdfbb4f6e9eb9
   m_configObjects:
     com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: 317a26ce4b6d9644ba9f8747b6b8d0d3, type: 2}
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: ac0b362e69b3e3643bdda56e34f74c64, type: 2}

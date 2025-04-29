@@ -6,7 +6,10 @@ public class CameraAdjust : MonoBehaviour
     public float adjustAmount = 200f;
     void Start()
     {
-        Camera.main.orthographicSize = Screen.height / adjustAmount; // Adjust 200f as needed
+        Camera.main.orthographicSize = 6.0f; // Adjust 200f as needed
+        //Debug.Log(Screen.height);
+        //Debug.Log(Screen.width);
+        //Debug.Log(Camera.main.orthographicSize);
     }
 
 }
