@@ -13,6 +13,9 @@ public class MovementChangeScript : MonoBehaviour
     //Slider movement - 2
     public LineSwaping Surfers;
 
+    //Invisible slider - 3
+    public InvisibleSliderMovement InvisibleSliderMove;
+
     int currentIndex = 0;
     int previousIndex = 0;
     public int indexLimit = 3;
@@ -39,6 +42,11 @@ public class MovementChangeScript : MonoBehaviour
                     Surfers.enabled = false;
                     break ;
                 }
+                case 3:
+                {
+                    InvisibleSliderMove.enabled = false;
+                    break;
+                }
         }
         //Enable new
         switch (currentIndex)
@@ -58,6 +66,11 @@ public class MovementChangeScript : MonoBehaviour
                 case 2:
                 {
                     Surfers.enabled = true;
+                    break;
+                }
+                case 3:
+                {
+                    InvisibleSliderMove.enabled= true;
                     break;
                 }
         }

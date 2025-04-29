@@ -1185,7 +1185,8 @@ MonoBehaviour:
   SliderMove: {fileID: 1628430532}
   Slider: {fileID: 410770580}
   Surfers: {fileID: 1628430533}
-  indexLimit: 3
+  InvisibleSliderMove: {fileID: 1628430534}
+  indexLimit: 4
 --- !u!4 &561578247
 Transform:
   m_ObjectHideFlags: 0
@@ -2215,6 +2216,7 @@ GameObject:
   - component: {fileID: 1628430531}
   - component: {fileID: 1628430532}
   - component: {fileID: 1628430533}
+  - component: {fileID: 1628430534}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -2231,7 +2233,7 @@ Transform:
   m_GameObject: {fileID: 1628430525}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.07000013, y: -2.04, z: 1.1900002}
+  m_LocalPosition: {x: 0, y: -2.04, z: 1.1900002}
   m_LocalScale: {x: 0.66000015, y: 0.66, z: 0.66000015}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -2460,6 +2462,49 @@ MonoBehaviour:
   minSwipe: 50
   maxSwipe: 1000
   dashSpeedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &1628430534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628430525}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4afc4af29af35f54692ba2e9185aa37a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minSwipe: 25
+  WorldWidth: 1
+  WorldHeight: 0
+  XMargin: 5
+  YMargin: 5
+  BoxHeight: 300
+  MoveDelay: 0.1
+  moveSpeedCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
