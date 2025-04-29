@@ -19,6 +19,8 @@ public class InvisibleSliderMovement : MonoBehaviour
     private Vector2 endTouchPosition;
 
     public float minSwipe = 25f;
+    public float minimumDIstance = 0.5f;
+    public float maxSpeed = 25.0f;
 
     public float WorldWidth;
     public float WorldHeight;
@@ -85,17 +87,25 @@ public class InvisibleSliderMovement : MonoBehaviour
         }
         Vector3 currentPos = rb.position;
         Vector3 offset = new Vector3(-xPos, yPos, 0);
-        Vector3 newPos = CanUseWholeScreen ? currentPos + offset  : centerPos + offset;
+        Vector3 dest = CanUseWholeScreen ? offset  : centerPos + offset;
+        Vector3 dir = CanUseWholeScreen ? (dest - currentPos) : offset;
+        dir.Normalize();
         MoveTime += Time.fixedDeltaTime;
         float t = MoveTime / MoveDelay;
         float curveValue = moveSpeedCurve.Evaluate(t);
-        Vector3 nextPosition = Vector3.Lerp(currentPos, newPos, curveValue);
-
-        rb.MovePosition(nextPosition);
-        if (MoveTime >= MoveDelay)
+        dir *= curveValue * maxSpeed * Time.deltaTime;
+        Vector3 finalNewPos;
+        if ((dest - currentPos).magnitude <= dir.magnitude)
         {
+            finalNewPos = dest;
             moving = false;
         }
+        else
+        {
+            finalNewPos = currentPos + dir;
+        }
+        //Vector3 nextPosition = Vector3.Lerp(currentPos, finalNewPos, curveValue);
+        rb.MovePosition(finalNewPos);
     }
 
     public void HandleTouchInput()

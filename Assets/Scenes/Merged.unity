@@ -892,6 +892,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   adjustAmount: 400
+  widthWorldSize: 6
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -2605,6 +2606,24 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0
+    - serializedVersion: 3
+      time: 0.06570967
+      value: 0.4697945
+      inSlope: 2.6379027
+      outSlope: 2.6379027
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.6829487
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.26549762
+      value: 0.7806979
+      inSlope: 0.7095644
+      outSlope: 0.7095644
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.5134922
+      outWeight: 0.21549508
     - serializedVersion: 3
       time: 1
       value: 1
