@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class StaticObstacle : MonoBehaviour
 {
-    public float fallSpeed = 2f;
+    public float fallSpeed = 1.0f;
 
     private Camera mainCamera;
     private float objectHeight;
@@ -15,10 +15,8 @@ public class StaticObstacle : MonoBehaviour
 
     void Update()
     {
-        // Ruch w dół
         transform.position += Vector3.down * fallSpeed * Time.deltaTime;
 
-        // Zniszcz przeszkodę, jeśli wypadnie poza ekran
         float screenBottom = mainCamera.transform.position.y - mainCamera.orthographicSize - objectHeight / 2f;
 
         if (transform.position.y < screenBottom)
@@ -31,7 +29,6 @@ public class StaticObstacle : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Gracz uderzył w statyczną przeszkodę!");
             Destroy(gameObject); 
         }
     }

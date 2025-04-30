@@ -44,9 +44,9 @@ GameObject:
   - component: {fileID: 7067650784199649581}
   - component: {fileID: 6085644053364855466}
   - component: {fileID: 6020974230149618626}
-  - component: {fileID: 6580792010105588984}
+  - component: {fileID: 4895375846102151140}
   m_Layer: 11
-  m_Name: StaticObstacle
+  m_Name: MovingObstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -169,7 +169,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 2
---- !u!114 &6580792010105588984
+--- !u!114 &4895375846102151140
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,7 +178,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4949117590964143298}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3b3a0d69b6507c479fa85bf80005f43, type: 3}
+  m_Script: {fileID: 11500000, guid: b95854a25fdf741478df44f0c381dd1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallSpeed: 5
+  moveSpeed: 2
+  fallSpeed: 2
+  moveRight: 1
