@@ -1827,6 +1827,12 @@ MonoBehaviour:
   - {fileID: 7919846346536870660, guid: 9a2db1c80baace14f8607cf41dc598ee, type: 3}
   spawnPoint: {fileID: 915365549}
   spawnInterval: 20.07
+  obstacleSpawnInterval: 2
+  obstaclePrefabs:
+  - {fileID: 4949117590964143298, guid: 93ede341b7672354d89c19b4042a8ba1, type: 3}
+  - {fileID: 4949117590964143298, guid: b7a3f8ad23d010141a79e6a73276edbc, type: 3}
+  laneCount: 3
+  laneWidth: 2
 --- !u!4 &1174149676
 Transform:
   m_ObjectHideFlags: 0
@@ -2307,7 +2313,7 @@ GameObject:
   - component: {fileID: 1628430534}
   m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2588,6 +2594,8 @@ MonoBehaviour:
   CanUseWholeScreen: 0
   Plane: {fileID: 1617172126}
   minSwipe: 25
+  minimumDIstance: 0.5
+  maxSpeed: 25
   WorldWidth: 5.6
   WorldHeight: 0
   XMargin: 25
