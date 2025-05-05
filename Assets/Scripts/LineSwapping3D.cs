@@ -32,13 +32,13 @@ public class LineSwapping3D : MonoBehaviour
     private bool isDragging = false;
     private bool isDashing = false;
 
-    public float currentLineSwapTime;
+    private float currentLineSwapTime;
 
     private int minVert;
     private int maxVert;
 
-    public int currentHorizontalLane = 0;
-    public int currentVerticalLane = 0;
+    private int currentHorizontalLane = 0;
+    private int currentVerticalLane = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
