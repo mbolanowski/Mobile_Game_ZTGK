@@ -88,6 +88,7 @@ public class InvisibleSliderMovement : MonoBehaviour
         Vector3 currentPos = rb.position;
         Vector3 offset = new Vector3(-xPos, yPos, 0);
         Vector3 dest = CanUseWholeScreen ? offset + new Vector3(0,0,1.19f)  : centerPos + offset;
+        dest.z = 1.19f;
         Vector3 dir = (dest - currentPos);
         dir.Normalize();
         MoveTime += Time.fixedDeltaTime;
@@ -130,6 +131,13 @@ public class InvisibleSliderMovement : MonoBehaviour
                     MoveTime = 0;
                 }
             }
+        }
+        else
+        {
+            // Reset to default Z when no touch input
+            Vector3 currentPos = rb.position;
+            currentPos.z = 3.19f;
+            rb.MovePosition(currentPos);
         }
     }
 }
