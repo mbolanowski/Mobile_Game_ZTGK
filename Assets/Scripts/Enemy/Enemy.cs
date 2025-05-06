@@ -1,23 +1,30 @@
+using System.Drawing;
 using UnityEngine;
+using DG.Tweening;
 
 public class Enemy : MonoBehaviour
 {
-    public int maxHP = 60; // Maximum HP
+    public int maxHP = 60; 
     private int currentHP;
 
-    public Transform hpBar; // Assign this in the Inspector
-    public Renderer hpBarRenderer; // Assign the Renderer of the HP bar (MeshRenderer)
+    public Transform hpBar;
+    public Renderer hpBarRenderer;
 
-    private Color fullHealthColor = Color.green;  // HP at 100%
-    private Color midHealthColor = Color.yellow;  // HP around 50%
-    private Color lowHealthColor = Color.red;     // HP at 0%
+    private UnityEngine.Color fullHealthColor = UnityEngine.Color.green;
+    private UnityEngine.Color midHealthColor = UnityEngine.Color.yellow;
+    private UnityEngine.Color lowHealthColor = UnityEngine.Color.red;
+
+    public string alphaPropertyName = "_Alpha";
 
     public GameObject player;
-    public Transform playerTransform; // Reference to the player
-    public GameObject bulletPrefab; // Bullet prefab
-    public Transform firePoint; // Bullet spawn point
-    public float fireRate = 1f; // Bullet fire rate
+    public Transform playerTransform;
+    public GameObject bulletPrefab;
+    public Transform firePoint;
+    public float fireRate = 1f; 
     private float lastFireTime;
+
+    public bool shooting = false;
+    public bool rotating = false;
 
     void Start()
     {
@@ -29,11 +36,20 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         playerTransform = player.transform;
-        //Debug.Log(playerTransform.position);
-        RotateTowardsPlayer();
-        ShootAtPlayer();
-    }
+        if(rotating) RotateTowardsPlayer();
+        if(shooting) ShootAtPlayer();
 
+        if(Mathf.Abs(player.transform.position.z - transform.position.z) > 1f)
+        {
+            Material material = gameObject.GetComponent<Renderer>().material;
+            material.DOFloat(0.2f, alphaPropertyName, 0.5f);
+        }
+        else
+        {
+            Material material = gameObject.GetComponent<Renderer>().material;
+            material.DOFloat(1.0f, alphaPropertyName, 0.5f);
+        }
+    }
     public void TakeDamage(int damage)
     {
         if (!hpBar.gameObject.active)
@@ -65,12 +81,12 @@ public class Enemy : MonoBehaviour
                 if (hpPercent > 0.5f)
                 {
                     // Lerp between Green and Yellow
-                    hpBarRenderer.material.color = Color.Lerp(midHealthColor, fullHealthColor, (hpPercent - 0.5f) * 2);
+                    hpBarRenderer.material.color = UnityEngine.Color.Lerp(midHealthColor, fullHealthColor, (hpPercent - 0.5f) * 2);
                 }
                 else
                 {
                     // Lerp between Yellow and Red
-                    hpBarRenderer.material.color = Color.Lerp(lowHealthColor, midHealthColor, hpPercent * 2);
+                    hpBarRenderer.material.color = UnityEngine.Color.Lerp(lowHealthColor, midHealthColor, hpPercent * 2);
                 }
             }
         }
@@ -80,7 +96,7 @@ public class Enemy : MonoBehaviour
     {
         if (transform.parent != null)
         {
-            Destroy(transform.parent.gameObject); // Destroy the parent and all its children
+            Destroy(transform.parent.gameObject);
         }
     }
 
