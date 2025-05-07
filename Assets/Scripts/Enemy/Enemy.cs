@@ -35,6 +35,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        if(player == null || !player.activeSelf)return;
         playerTransform = player.transform;
         if(rotating) RotateTowardsPlayer();
         if(shooting) ShootAtPlayer();

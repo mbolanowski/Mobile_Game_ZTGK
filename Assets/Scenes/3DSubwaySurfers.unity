@@ -1580,7 +1580,7 @@ MonoBehaviour:
   - {fileID: 7919846346536870660, guid: 24f403b9ff59d2440a782fa3664d9cb6, type: 3}
   - {fileID: 7919846346536870660, guid: 6be5939a327ba484ab2a37951cc21e97, type: 3}
   - {fileID: 7919846346536870660, guid: 379c98eca1223bb4eaeaad22919d3876, type: 3}
-  spawnInterval: 1.5
+  spawnInterval: 2.5
 --- !u!1 &931076535 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: df78b88064a5c204a91bc7ad1bdd9faa, type: 3}
@@ -2759,7 +2759,7 @@ MonoBehaviour:
   - {fileID: 7919846346536870660, guid: b1fa12d39e6b0ad498f85925bfb07917, type: 3}
   - {fileID: 7919846346536870660, guid: f31ad44692a1ccb46bde2c5cfe031be4, type: 3}
   - {fileID: 7919846346536870660, guid: 7ef69daa17b2c9c4db47a426a330c163, type: 3}
-  spawnInterval: 3
+  spawnInterval: 4
 --- !u!4 &1434900907
 Transform:
   m_ObjectHideFlags: 0
