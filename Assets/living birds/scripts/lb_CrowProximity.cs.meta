@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 92a84cd7d0b8fdd4ea5b7054a6649a37
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 15649
+  packageName: Living Birds
+  packageVersion: v1.2
+  assetPath: Assets/living birds/scripts/lb_CrowProximity.cs
+  uploadId: 22984

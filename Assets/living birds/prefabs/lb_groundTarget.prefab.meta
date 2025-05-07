@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 31f99d16c6cf30d408b04dcec6f5a857
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 15649
+  packageName: Living Birds
+  packageVersion: v1.2
+  assetPath: Assets/living birds/prefabs/lb_groundTarget.prefab
+  uploadId: 22984

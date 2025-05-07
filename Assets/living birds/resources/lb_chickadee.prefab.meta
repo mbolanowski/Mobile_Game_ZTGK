@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d7bf5fc6800d56b459109410ec6a0510
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 15649
+  packageName: Living Birds
+  packageVersion: v1.2
+  assetPath: Assets/living birds/resources/lb_chickadee.prefab
+  uploadId: 22984

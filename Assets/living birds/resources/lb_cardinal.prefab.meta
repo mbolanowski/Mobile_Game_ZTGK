@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5f38a05f6440d154495172bd3da87d55
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 15649
+  packageName: Living Birds
+  packageVersion: v1.2
+  assetPath: Assets/living birds/resources/lb_cardinal.prefab
+  uploadId: 22984

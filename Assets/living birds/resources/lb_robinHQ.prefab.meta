@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 91da67b32e5c13648a459e093ac1acb6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 15649
+  packageName: Living Birds
+  packageVersion: v1.2
+  assetPath: Assets/living birds/resources/lb_robinHQ.prefab
+  uploadId: 22984

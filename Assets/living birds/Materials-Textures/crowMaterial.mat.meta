@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d0d4a67853aabd34c87abfa0fd43b68c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 15649
+  packageName: Living Birds
+  packageVersion: v1.2
+  assetPath: Assets/living birds/Materials-Textures/crowMaterial.mat
+  uploadId: 22984

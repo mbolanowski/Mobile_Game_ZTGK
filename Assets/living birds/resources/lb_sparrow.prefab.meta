@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c42b8d643b928594d8e92b17b63dfe06
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 15649
+  packageName: Living Birds
+  packageVersion: v1.2
+  assetPath: Assets/living birds/resources/lb_sparrow.prefab
+  uploadId: 22984

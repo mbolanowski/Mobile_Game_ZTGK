@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: caf9ed1b35da9be4ca771c1c07c070cf
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 15649
+  packageName: Living Birds
+  packageVersion: v1.2
+  assetPath: Assets/living birds/resources/featherEmitter.prefab
+  uploadId: 22984

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7b7d8539cdecdd94ba53e8af65a526f6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 15649
+  packageName: Living Birds
+  packageVersion: v1.2
+  assetPath: Assets/living birds/resources/lb_blueJay.prefab
+  uploadId: 22984

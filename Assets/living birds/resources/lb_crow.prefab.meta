@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3a5320db60c4f694f9724f4273599524
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 15649
+  packageName: Living Birds
+  packageVersion: v1.2
+  assetPath: Assets/living birds/resources/lb_crow.prefab
+  uploadId: 22984

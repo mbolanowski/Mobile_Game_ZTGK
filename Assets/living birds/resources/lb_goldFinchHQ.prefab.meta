@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 40ba60a1fcd52884f8878990bd8dd37e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 15649
+  packageName: Living Birds
+  packageVersion: v1.2
+  assetPath: Assets/living birds/resources/lb_goldFinchHQ.prefab
+  uploadId: 22984

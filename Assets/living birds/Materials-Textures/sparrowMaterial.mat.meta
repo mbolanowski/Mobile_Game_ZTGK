@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f0fc484a5791de64ebaebef058070013
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 15649
+  packageName: Living Birds
+  packageVersion: v1.2
+  assetPath: Assets/living birds/Materials-Textures/sparrowMaterial.mat
+  uploadId: 22984

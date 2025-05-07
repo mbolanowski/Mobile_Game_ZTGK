@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c1a884dfa8f21d4488faae471c05bf9c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 15649
+  packageName: Living Birds
+  packageVersion: v1.2
+  assetPath: Assets/living birds/Materials-Textures/goldFinchMaterialHQ.mat
+  uploadId: 22984

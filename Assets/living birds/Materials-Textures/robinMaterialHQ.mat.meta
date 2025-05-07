@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 51ca230fc2250074eae1ba2bcc09f070
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 15649
+  packageName: Living Birds
+  packageVersion: v1.2
+  assetPath: Assets/living birds/Materials-Textures/robinMaterialHQ.mat
+  uploadId: 22984

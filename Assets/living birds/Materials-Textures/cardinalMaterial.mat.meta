@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: aae7627a8ea8a954d9d1fd75fe35f56b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 15649
+  packageName: Living Birds
+  packageVersion: v1.2
+  assetPath: Assets/living birds/Materials-Textures/cardinalMaterial.mat
+  uploadId: 22984
