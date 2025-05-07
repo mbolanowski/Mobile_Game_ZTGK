@@ -118,7 +118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7092313327883131625}
   m_Layer: 0
-  m_Name: WallEnemy
+  m_Name: Car
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,7 +134,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.35, y: 2.4318001, z: 1.18}
-  m_LocalScale: {x: 8.73, y: 1, z: 1}
+  m_LocalScale: {x: 7.4, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3563923377976185678}
@@ -170,14 +170,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5668945850277995986}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3780001, y: 0.37058824, z: 0.3780001}
+  m_LocalScale: {x: 0.32, y: 0.37058824, z: 0.3780001}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8540498909302087066}
   m_Father: {fileID: 7092313327883131625}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!33 &8361374757677185388
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -185,7 +185,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5668945850277995986}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &3489317239206074491
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -209,7 +209,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: d4badd206a6a7dd43ac524251b7ce469, type: 3}
+  - {fileID: -876546973899608171, guid: ec093e82894700242902962f6c8a2cb1, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
