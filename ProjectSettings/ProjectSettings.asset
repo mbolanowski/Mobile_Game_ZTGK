@@ -830,9 +830,9 @@ PlayerSettings:
     PS5: DOTWEEN
     QNX: DOTWEEN
     ReservedCFE: DOTWEEN
-    Standalone: DOTWEEN
+    Standalone: DOTWEEN;PROBUILDER_EXPERIMENTAL_FEATURES
     VisionOS: DOTWEEN
-    WebGL: DOTWEEN
+    WebGL: DOTWEEN;PROBUILDER_EXPERIMENTAL_FEATURES
     Windows Store Apps: DOTWEEN
     XboxOne: DOTWEEN
     iPhone: DOTWEEN
