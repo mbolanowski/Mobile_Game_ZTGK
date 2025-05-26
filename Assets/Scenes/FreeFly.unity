@@ -1050,6 +1050,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02772f00881ca864fb300638e7628fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  obstaclePrefabs:
+  - {fileID: 562649795588232539, guid: 64a2ba97cad3c5746aac0a30f5c9fe58, type: 3}
+  - {fileID: 16007967740490976, guid: 97d73691fd940184f947a97f2ca7a654, type: 3}
+  - {fileID: 2675481942258602291, guid: dc4769c3a7e0e5341897e3beb90358e0, type: 3}
+  - {fileID: 1735773754691390650, guid: 94e53ff540cd2954a9ba13c8c6f33b7e, type: 3}
+  player: {fileID: 177121342}
+  spawnDistance: 100
+  removeDistance: 50
+  tilesPerRow: 8
+  tileSpacingX: 12
+  rowSpacingZ: 10
 --- !u!4 &1223306860
 Transform:
   m_ObjectHideFlags: 0
