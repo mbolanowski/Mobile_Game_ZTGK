@@ -29,7 +29,7 @@ public class PlayerHealth : MonoBehaviour
         healthbarScript.ChangeHealthBarState(currentHP/maxHP);
         if (currentHP <= 0)
         {
-            gameObject.SetActive(false);
+            GameManager.Instance.TriggerGameOver();
         }
     }
 

@@ -30,6 +30,8 @@ public class TurningScript : MonoBehaviour
     private float targetLeanPer;
     private float currentLeanPer = 0.0f;
 
+    public bool isDead = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -44,11 +46,13 @@ public class TurningScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isDead) return;
         HandleTouchInput();
     }
 
     private void FixedUpdate()
     {
+        if(isDead) return;
         if(leanChanged)UpdateLean();
         Move();
     }
