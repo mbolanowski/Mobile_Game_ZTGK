@@ -7,13 +7,22 @@ public class DestructibleWall : MonoBehaviour
     public float falloffRadius = 5f;
     public float destroyedLifetime = 5f;
 
+    public TurningScript ts;
+
     private bool hasExploded = false;
+
+    private void Start()
+    {
+        ts = FindFirstObjectByType<TurningScript>();
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (!hasExploded && collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             hasExploded = true;
+
+            ts.BoostSpeed();
 
             Vector3 contactPoint = collision.GetContact(0).point;
             Vector3 forceDirection = -collision.transform.forward.normalized;

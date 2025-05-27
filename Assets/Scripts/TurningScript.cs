@@ -15,6 +15,9 @@ public class TurningScript : MonoBehaviour
     public float rotationSpeed;
 
     public Transform birdRotationTransform;
+    public Camera playerCamera;
+    public float boostFOVIncrease = 20f; // How much to increase FOV during boost
+    public float boostLerpSpeed = 10f; // Speed of the initial burst lerp
 
     private const float minError = 0.01f;
 
@@ -32,6 +35,15 @@ public class TurningScript : MonoBehaviour
 
     public bool isDead = false;
 
+    // Boost variables
+    private bool isBoosting = false;
+    private float boostSpeedMultiplier = 2.0f; // Multiplier for the burst of speed
+    private float boostDuration = 0.5f; // Duration of the burst
+    private float boostCooldown = 2.0f; // Cooldown before returning to normal
+    private float boostTimer = 0.0f;
+    private float baseFlySpeed; // This will be our permanent base speed that increases
+    private float originalFOV; // Store the original camera FOV
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -41,6 +53,13 @@ public class TurningScript : MonoBehaviour
         xMult = 2.0f / (float)Rectangle.Width;
         baseRotation = birdRotationTransform.localEulerAngles;
         defualtPos = new Vector2(halfXpos, 0);
+
+        baseFlySpeed = FlySpeed;
+
+        if (playerCamera != null)
+        {
+            originalFOV = playerCamera.fieldOfView;
+        }
     }
 
     // Update is called once per frame
@@ -48,12 +67,51 @@ public class TurningScript : MonoBehaviour
     {
         if (isDead) return;
         HandleTouchInput();
+
+        if (isBoosting)
+        {
+            boostTimer += Time.deltaTime;
+
+            if (boostTimer < boostDuration)
+            {
+                float targetSpeed = baseFlySpeed * boostSpeedMultiplier;
+                FlySpeed = Mathf.Lerp(FlySpeed, targetSpeed, boostLerpSpeed * Time.deltaTime);
+
+                if (playerCamera != null)
+                {
+                    float targetFOV = originalFOV + boostFOVIncrease;
+                    playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, targetFOV, boostLerpSpeed * Time.deltaTime);
+                }
+            }
+            else if (boostTimer < boostDuration + boostCooldown)
+            {
+                FlySpeed = Mathf.Lerp(FlySpeed, baseFlySpeed * 1.2f, Time.deltaTime);
+
+                // Gradually return FOV to normal
+                if (playerCamera != null)
+                {
+                    float targetFOV = originalFOV;
+                    playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, targetFOV - 1f, Time.deltaTime);
+                }
+            }
+            else
+            {
+                FlySpeed = baseFlySpeed * 1.2f;
+
+                if (playerCamera != null)
+                {
+                    playerCamera.fieldOfView = originalFOV;
+                }
+
+                isBoosting = false;
+            }
+        }
     }
 
     private void FixedUpdate()
     {
-        if(isDead) return;
-        if(leanChanged)UpdateLean();
+        if (isDead) return;
+        if (leanChanged) UpdateLean();
         Move();
     }
 
@@ -72,13 +130,13 @@ public class TurningScript : MonoBehaviour
             targetPos = defualtPos;
             leanChanged = true;
         }
-       
+
         targetLeanPer = (targetPos.x - halfXpos) * xMult;
 
         float rotationSpeedPer = rotationSpeed / MaxLeanAngle;
 
         float tempAngle;
-        if(targetLeanPer - currentLeanPer < 0)
+        if (targetLeanPer - currentLeanPer < 0)
         {
             tempAngle = currentLeanPer + rotationSpeedPer * Time.fixedDeltaTime * -1.0f;
             tempAngle = Mathf.Max(tempAngle, targetLeanPer);
@@ -90,7 +148,7 @@ public class TurningScript : MonoBehaviour
         }
 
         currentLeanPer = tempAngle;
-        if(Mathf.Abs(currentLeanPer - targetLeanPer) <= minError)
+        if (Mathf.Abs(currentLeanPer - targetLeanPer) <= minError)
         {
             leanChanged = false;
             currentLeanPer = targetLeanPer;
@@ -115,12 +173,23 @@ public class TurningScript : MonoBehaviour
             {
                 targetPos = touch.position;
                 leanChanged = true;
-            } 
-            else if(touch.phase == TouchPhase.Ended)
+            }
+            else if (touch.phase == TouchPhase.Ended)
             {
                 targetPos = defualtPos;
                 leanChanged = true;
             }
+        }
+    }
+
+    public void BoostSpeed()
+    {
+        baseFlySpeed += 1.0f;
+
+        if (!isBoosting)
+        {
+            isBoosting = true;
+            boostTimer = 0.0f;
         }
     }
 }
