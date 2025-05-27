@@ -1883,6 +1883,9 @@ MonoBehaviour:
   FlySpeed: 5
   rotationSpeed: 120
   birdRotationTransform: {fileID: 177121342}
+  playerCamera: {fileID: 330585545}
+  boostFOVIncrease: 5
+  boostLerpSpeed: 10
   isDead: 0
 --- !u!43 &1670089311
 Mesh:
