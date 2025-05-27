@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6380427362037272723}
   - component: {fileID: 6291352754675298155}
   - component: {fileID: 6175091729368164760}
+  - component: {fileID: 5890663352954938495}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -102,7 +103,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -153,6 +154,7 @@ GameObject:
   - component: {fileID: 4710528279696081296}
   - component: {fileID: 7050005074869449657}
   - component: {fileID: 6946893700037404063}
+  - component: {fileID: 8862334147742723990}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -243,7 +245,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -301,11 +303,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4577930690379976992, guid: 1b2e4d63d8389284795434415ad6ccb9, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2220596947226199842, guid: 1b2e4d63d8389284795434415ad6ccb9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5890663352954938495}
   m_SourcePrefab: {fileID: 100100000, guid: 1b2e4d63d8389284795434415ad6ccb9, type: 3}
+--- !u!114 &5890663352954938495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347916406420364280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35cbaaea7ad08d84e9724856e2fc01fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageValue: 20
 --- !u!1001 &7356483992260929142
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -317,6 +339,10 @@ PrefabInstance:
     - target: {fileID: 900491084701985968, guid: 2fe71a6c4c2ecca47ae991f5f96a1ffd, type: 3}
       propertyPath: m_Name
       value: Cube (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5075033604271629830, guid: 2fe71a6c4c2ecca47ae991f5f96a1ffd, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7885483321090498564, guid: 2fe71a6c4c2ecca47ae991f5f96a1ffd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -361,5 +387,21 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 900491084701985968, guid: 2fe71a6c4c2ecca47ae991f5f96a1ffd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8862334147742723990}
   m_SourcePrefab: {fileID: 100100000, guid: 2fe71a6c4c2ecca47ae991f5f96a1ffd, type: 3}
+--- !u!114 &8862334147742723990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6191360757500325871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35cbaaea7ad08d84e9724856e2fc01fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageValue: 20

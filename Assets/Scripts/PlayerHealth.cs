@@ -39,6 +39,7 @@ public class PlayerHealth : MonoBehaviour
         if(damageSource != null)
         {
             TakeDamage(damageSource.DamageValue);
+            Destroy(damageSource.gameObject);
         }
     }
 

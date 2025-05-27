@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1890022703383596035}
   - component: {fileID: 1661098540838530593}
   - component: {fileID: 2324299228842900362}
+  - component: {fileID: 3530835650002661551}
   m_Layer: 0
   m_Name: Building-center
   m_TagString: Untagged
@@ -102,9 +103,22 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3530835650002661551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735773754691390650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35cbaaea7ad08d84e9724856e2fc01fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageValue: 20
