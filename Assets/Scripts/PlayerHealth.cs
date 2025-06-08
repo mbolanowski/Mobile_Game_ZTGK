@@ -6,6 +6,8 @@ public class PlayerHealth : MonoBehaviour
     public float invTimeAfterHit;
     public HealthbarScript healthbarScript;
 
+    public float healthLossRate;
+
     private float currentHP;
     private float afterHitTime = 0.0f;
 
@@ -19,18 +21,30 @@ public class PlayerHealth : MonoBehaviour
     private void FixedUpdate()
     {
         afterHitTime += Time.fixedDeltaTime;
+        ModifyHealth(-healthLossRate * Time.fixedDeltaTime);
     }
 
     public void TakeDamage(float damage)
     {
-        if (afterHitTime < invTimeAfterHit) return;
+        if (afterHitTime < invTimeAfterHit || damage < 0.0f) return;
         afterHitTime = 0.0f;
-        currentHP = Mathf.Clamp(currentHP - damage, 0, maxHP);
-        healthbarScript.ChangeHealthBarState(currentHP/maxHP);
+        ModifyHealth(-damage);
+    }
+
+    private void ModifyHealth(float change)
+    {
+        currentHP = Mathf.Clamp(currentHP + change,0, maxHP);
+        healthbarScript.ChangeHealthBarState(currentHP / maxHP);
         if (currentHP <= 0)
         {
             GameManager.Instance.TriggerGameOver();
         }
+    }
+
+    public void Heal(float healValue)
+    {
+        if(healValue < 0.0f) return;
+        ModifyHealth(healValue);
     }
 
     private void OnTriggerEnter(Collider other)

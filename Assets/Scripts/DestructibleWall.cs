@@ -8,6 +8,7 @@ public class DestructibleWall : MonoBehaviour
     public float destroyedLifetime = 5f;
 
     public TurningScript ts;
+    public float healValue = 50.0f;
 
     private bool hasExploded = false;
 
@@ -23,6 +24,7 @@ public class DestructibleWall : MonoBehaviour
             hasExploded = true;
 
             ts.BoostSpeed();
+            ts.gameObject.GetComponent<PlayerHealth>().Heal(healValue);
 
             Vector3 contactPoint = collision.GetContact(0).point;
             Vector3 forceDirection = -collision.transform.forward.normalized;
