@@ -2998,6 +2998,7 @@ MonoBehaviour:
   maxHP: 100
   invTimeAfterHit: 0.25
   healthbarScript: {fileID: 608874743}
+  healthLossRate: 5
 --- !u!114 &1628430535
 MonoBehaviour:
   m_ObjectHideFlags: 0
