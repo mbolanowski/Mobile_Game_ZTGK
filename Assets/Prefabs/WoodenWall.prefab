@@ -341,5 +341,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyedPrefab: {fileID: 5413319766190288088, guid: bb567232a29d14c4db6bc78b1fa9c5fd, type: 3}
   maxForce: 15
-  falloffRadius: 2
+  falloffRadius: 4.01
   destroyedLifetime: 5
+  ts: {fileID: 0}
+  healValue: 50

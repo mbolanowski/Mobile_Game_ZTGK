@@ -52,6 +52,7 @@ public class PlayerHealth : MonoBehaviour
         DamageSource damageSource = other.gameObject.GetComponent<DamageSource>();
         if(damageSource != null)
         {
+            Debug.Log("???");
             TakeDamage(damageSource.DamageValue);
             Destroy(damageSource.gameObject);
         }

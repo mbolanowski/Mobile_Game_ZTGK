@@ -13,6 +13,7 @@ public class TurningScript : MonoBehaviour
     public float MaxSideSpeed;
     public float FlySpeed;
     public float rotationSpeed;
+    public float actualFlySpeed;
 
     public Transform birdRotationTransform;
     public Camera playerCamera;
@@ -60,6 +61,7 @@ public class TurningScript : MonoBehaviour
         {
             originalFOV = playerCamera.fieldOfView;
         }
+        actualFlySpeed = FlySpeed;
     }
 
     // Update is called once per frame
@@ -184,7 +186,8 @@ public class TurningScript : MonoBehaviour
 
     public void BoostSpeed()
     {
-        baseFlySpeed += 1.0f;
+        baseFlySpeed += 0.6f;
+        actualFlySpeed += 0.6f;
 
         if (!isBoosting)
         {
