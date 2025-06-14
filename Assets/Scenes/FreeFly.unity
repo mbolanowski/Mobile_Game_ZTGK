@@ -1537,6 +1537,7 @@ MonoBehaviour:
   DeathScreen: {fileID: 1312128815}
   Score: {fileID: 1148230922}
   FinalScore: {fileID: 720714724}
+  animator: {fileID: 1730724976}
 --- !u!4 &422652623
 Transform:
   m_ObjectHideFlags: 0
@@ -7950,6 +7951,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400124, guid: 0646ceebc81f52a4e8a676e94ab46092, type: 3}
   m_PrefabInstance: {fileID: 1114361703}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1730724976 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9500000, guid: 0646ceebc81f52a4e8a676e94ab46092, type: 3}
+  m_PrefabInstance: {fileID: 1114361703}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1731511179
 GameObject:
   m_ObjectHideFlags: 0
@@ -8247,7 +8253,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1902176393188474481, guid: d5ff762c3f7a4664faaf4967607435fb, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4650133095568980863, guid: d5ff762c3f7a4664faaf4967607435fb, type: 3}
       propertyPath: ShapeModule.type

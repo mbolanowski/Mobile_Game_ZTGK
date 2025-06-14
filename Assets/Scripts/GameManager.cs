@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
 
     private bool gameRunning = true;
 
+    public Animator animator;
+
     void Start()
     {
         Instance = this;
@@ -36,6 +38,7 @@ public class GameManager : MonoBehaviour
     public void TriggerGameOver()
     {
         gameRunning = false;
+        animator.enabled = false;
         playerMovement.isDead = true;
         HealthBar.SetActive(false);
         DeathScreen.SetActive(true);
