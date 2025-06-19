@@ -7020,6 +7020,7 @@ MonoBehaviour:
   invTimeAfterHit: 0.25
   healthbarScript: {fileID: 608874743}
   healthLossRate: 5
+  turningScript: {fileID: 1628430535}
 --- !u!114 &1628430535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7037,9 +7038,12 @@ MonoBehaviour:
   BoxHeight: 450
   MaxLeanAngle: 50
   MaxSideSpeed: 10
-  FlySpeed: 9.37
+  FlySpeed: 10
   rotationSpeed: 120
+  speedIncrease: 1
   actualFlySpeed: 0
+  screenShakeDuration: 0.5
+  screenShakeAmount: 0.03
   birdRotationTransform: {fileID: 177121342}
   playerCamera: {fileID: 330585545}
   boostFOVIncrease: 5

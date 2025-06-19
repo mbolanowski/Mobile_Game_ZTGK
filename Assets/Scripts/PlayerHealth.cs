@@ -11,6 +11,7 @@ public class PlayerHealth : MonoBehaviour
     private float currentHP;
     private float afterHitTime = 0.0f;
 
+    public TurningScript turningScript;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -55,6 +56,7 @@ public class PlayerHealth : MonoBehaviour
             Debug.Log("???");
             TakeDamage(damageSource.DamageValue);
             Destroy(damageSource.gameObject);
+            turningScript.RunScreenShake();
         }
     }
 

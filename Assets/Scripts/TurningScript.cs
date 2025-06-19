@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Drawing;
 using UnityEngine;
 
@@ -13,12 +14,25 @@ public class TurningScript : MonoBehaviour
     public float MaxSideSpeed;
     public float FlySpeed;
     public float rotationSpeed;
+    public float speedIncrease = 0.6f;
     public float actualFlySpeed;
 
+    [Header("Screen Shake")]
+    public float screenShakeDuration = 1.0f;
+    public float screenShakeAmount = 1.0f;
+    private float screenShakeTimer = 0;
+    private bool isShaking = false;
+
+    [Header("Boost")]
     public Transform birdRotationTransform;
     public Camera playerCamera;
     public float boostFOVIncrease = 20f; // How much to increase FOV during boost
     public float boostLerpSpeed = 10f; // Speed of the initial burst lerp
+
+    [Header("Others")]
+    public bool isDead = false;
+    public ParticleSystem pickupParticles;
+
 
     private const float minError = 0.01f;
 
@@ -34,7 +48,7 @@ public class TurningScript : MonoBehaviour
     private float targetLeanPer;
     private float currentLeanPer = 0.0f;
 
-    public bool isDead = false;
+    
 
     // Boost variables
     private bool isBoosting = false;
@@ -45,7 +59,7 @@ public class TurningScript : MonoBehaviour
     private float baseFlySpeed; // This will be our permanent base speed that increases
     private float originalFOV; // Store the original camera FOV
 
-    public ParticleSystem pickupParticles;
+    
 
     void Start()
     {
@@ -109,6 +123,32 @@ public class TurningScript : MonoBehaviour
 
                 isBoosting = false;
             }
+        }
+    }
+    IEnumerator ScreenShake()
+    {
+        Vector3 defaultPositon = playerCamera.transform.localPosition;
+        isShaking = true;
+        while (screenShakeTimer < screenShakeDuration)
+        {
+            playerCamera.transform.localPosition = defaultPositon + Random.insideUnitSphere * screenShakeAmount;
+            screenShakeTimer += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+        screenShakeTimer = 0;
+        playerCamera.transform.localPosition = defaultPositon;
+        isShaking = false;
+    }
+
+    public void RunScreenShake()
+    {
+        if (isShaking)
+        {
+            screenShakeTimer = 0;
+        } 
+        else
+        {
+            StartCoroutine("ScreenShake");
         }
     }
 
@@ -188,8 +228,8 @@ public class TurningScript : MonoBehaviour
 
     public void BoostSpeed()
     {
-        baseFlySpeed += 0.6f;
-        actualFlySpeed += 0.6f;
+        baseFlySpeed += speedIncrease;
+        actualFlySpeed += speedIncrease;
 
         pickupParticles.Play();
 
