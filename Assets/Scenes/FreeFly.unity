@@ -1161,7 +1161,7 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    m_Quality: 4
+    m_Quality: 2
     m_FrameInfluence: 0.102999985
     m_JitterScale: 1
     m_MipBias: 0
