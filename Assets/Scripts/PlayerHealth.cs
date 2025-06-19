@@ -56,6 +56,7 @@ public class PlayerHealth : MonoBehaviour
             Debug.Log("???");
             TakeDamage(damageSource.DamageValue);
             Destroy(damageSource.gameObject);
+            Handheld.Vibrate();
             turningScript.RunScreenShake();
         }
     }

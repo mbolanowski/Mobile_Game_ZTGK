@@ -232,6 +232,7 @@ public class TurningScript : MonoBehaviour
         actualFlySpeed += speedIncrease;
 
         pickupParticles.Play();
+        Handheld.Vibrate();
 
         if (!isBoosting)
         {
