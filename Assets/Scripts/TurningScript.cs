@@ -45,6 +45,8 @@ public class TurningScript : MonoBehaviour
     private float baseFlySpeed; // This will be our permanent base speed that increases
     private float originalFOV; // Store the original camera FOV
 
+    public ParticleSystem pickupParticles;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -188,6 +190,8 @@ public class TurningScript : MonoBehaviour
     {
         baseFlySpeed += 0.6f;
         actualFlySpeed += 0.6f;
+
+        pickupParticles.Play();
 
         if (!isBoosting)
         {
