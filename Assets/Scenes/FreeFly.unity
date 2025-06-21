@@ -2354,10 +2354,12 @@ MonoBehaviour:
   - {fileID: 9147685669817653679, guid: fceb31618b8f6164294b8109beb735d6, type: 3}
   - {fileID: 9147685669817653679, guid: 3b1f5b57cb92b844e8cae05b673bd8bc, type: 3}
   - {fileID: 9147685669817653679, guid: 78ccaee57af488745ba41710e6138656, type: 3}
+  - {fileID: 9147685669817653679, guid: f4a5ff3d6a660bd48ba721712c2f466d, type: 3}
   tilePrefabsR:
   - {fileID: 9147685669817653679, guid: c330769c65542934db06e3746a96aedb, type: 3}
   - {fileID: 9147685669817653679, guid: 6d981c7c5385e2e4d8adceea380a3691, type: 3}
   - {fileID: 9147685669817653679, guid: cfb1aa573f09d384aa66eb569949f7d1, type: 3}
+  - {fileID: 9147685669817653679, guid: a6374a4d80c798c469b3279ad7eaae9f, type: 3}
   LastSpawned: 100
 --- !u!4 &782694956
 Transform:
@@ -6922,8 +6924,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.092902504, y: 0.06918558, z: 0.069151595}
-  m_Center: {x: -0.0010887783, y: 0.005563279, z: 0.010197498}
+  m_Size: {x: 0.05, y: 0.06, z: 0.05}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1628430528
 MeshRenderer:
   m_ObjectHideFlags: 0
