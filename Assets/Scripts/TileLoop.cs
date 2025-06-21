@@ -65,6 +65,7 @@ public class TileLoop : MonoBehaviour
                     );
                 }
             }
+            // FrontDetection
             else if (gameObject.name == "FrontDetection")
             {
                 Vector3 currentPos = gameObject.transform.parent.position;
@@ -74,12 +75,19 @@ public class TileLoop : MonoBehaviour
                     GameObject randomPrefab = tilePrefabs[randomIndex];
                     GameObject instance = Instantiate(randomPrefab, currentPos + new Vector3(0f, 0f, -170f), Quaternion.identity);
                     float scaleZ = zScaleFactor * (ts.actualFlySpeed / baseFlySpeed);
-                    Vector3 scale = instance.transform.localScale;
-                    scale.z *= scaleZ;
-                    instance.transform.localScale = scale;
+
+                    foreach (Transform child in instance.transform)
+                    {
+                        Vector3 childScale = child.localScale;
+                        childScale.z *= scaleZ;
+                        child.localScale = childScale;
+                    }
+
                     manager.LastSpawned = randomIndex;
                 }
             }
+
+            // FrontDetectionR
             else if (gameObject.name == "FrontDetectionR")
             {
                 Vector3 currentPos = gameObject.transform.parent.position;
@@ -89,11 +97,16 @@ public class TileLoop : MonoBehaviour
                     GameObject randomPrefab = tilePrefabsR[randomIndex];
                     GameObject instance = Instantiate(randomPrefab, currentPos + new Vector3(0f, 0f, -170f), Quaternion.identity);
                     float scaleZ = zScaleFactor * (ts.actualFlySpeed / baseFlySpeed);
-                    Vector3 scale = instance.transform.localScale;
-                    scale.z *= scaleZ;
-                    instance.transform.localScale = scale;
+
+                    foreach (Transform child in instance.transform)
+                    {
+                        Vector3 childScale = child.localScale;
+                        childScale.z *= scaleZ;
+                        child.localScale = childScale;
+                    }
                 }
             }
+
             else if (gameObject.name == "DeleteDetection")
             {
                 Destroy(gameObject.transform.parent.gameObject);
