@@ -165,7 +165,7 @@ public class TurningScript : MonoBehaviour
         currentPos.x -= MaxSideSpeed * Time.fixedDeltaTime * currentLeanPer;
         currentPos.z -= FlySpeed * Time.fixedDeltaTime;
         rb.MovePosition(currentPos);
-        rb.MovePosition(new Vector3(0f,0f,0f));
+        //rb.MovePosition(new Vector3(0f,0f,0f));
     }
 
     private void UpdateLean()
