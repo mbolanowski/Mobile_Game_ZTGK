@@ -5,6 +5,6 @@ public class StartGame : MonoBehaviour
 {
     public void LoadGameScene()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(1);
     }
 }

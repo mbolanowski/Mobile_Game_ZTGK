@@ -1,1 +1,0 @@
-{"dataList":[{"Name":"PLAYER_NO_4","Score":3959},{"Name":"PLAYER_NO_2","Score":1229},{"Name":"PLAYERz_NO_1","Score":646},{"Name":"PLAYER_NO_3","Score":498},{"Name":"PLAYERz_NO_0","Score":264},{"Name":"PLAYER_NO_5","Score":263}]}
