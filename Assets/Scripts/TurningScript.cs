@@ -19,6 +19,8 @@ public class TurningScript : MonoBehaviour
     public float rotationSpeed;
     //public float speedIncrease = 0.6f;
     //public float actualFlySpeed;
+    public float SpeedDecreaseTime;
+    private float currentTime = 0;
 
     [Header("Screen Shake")]
     public float screenShakeDuration = 1.0f;
@@ -157,6 +159,11 @@ public class TurningScript : MonoBehaviour
         currentPos.z -= currentSpeed * Time.fixedDeltaTime;
         rb.MovePosition(currentPos);
         //rb.MovePosition(new Vector3(0f,0f,0f));
+        if(SpeedDecreaseTime < currentTime)
+        {
+            if(!TookHit())GameManager.Instance.TriggerGameOver();
+        }
+        currentTime += Time.fixedDeltaTime;
     }
 
     private void UpdateLean()
@@ -258,11 +265,13 @@ public class TurningScript : MonoBehaviour
         currentFOV = SpeedLevelsFOVs[CurrentSpeedLevel];
         playerCamera.fieldOfView = currentFOV;
         MaxSideSpeed = SideSpeedLevels[CurrentSpeedLevel];
+        currentTime = 0;
         return true;
     }
 
     public void BoostSpeed()
     {
+        currentTime = 0;
         if(CurrentSpeedLevel < SpeedLevels.Length - 1)
         {
             CurrentSpeedLevel++;

@@ -2921,7 +2921,7 @@ MonoBehaviour:
   - {fileID: 9147685669817653679, guid: a6374a4d80c798c469b3279ad7eaae9f, type: 3}
   nextSpawn: {fileID: 1592997954}
   nextSpawnR: {fileID: 602108741}
-  zScaleFactor: 0
+  zScaleFactor: 0.6
   LastSpawned: 100
 --- !u!4 &782694956
 Transform:
@@ -7787,6 +7787,7 @@ MonoBehaviour:
   MaxLeanAngle: 50
   MaxSideSpeed: 10
   rotationSpeed: 120
+  SpeedDecreaseTime: 20
   screenShakeDuration: 0.5
   screenShakeAmount: 0.03
   BoostIncrease: 3
