@@ -29,6 +29,11 @@ public class GameManager : MonoBehaviour
     public GameObject ScoreSaving;
     public TMP_InputField field;
 
+    [Header("Speed Sprites")] 
+    public RawImage bird;
+    public RawImage[] leftImages;
+    public RawImage[] rightImages;
+
     void Start()
     {
         Instance = this;
@@ -40,8 +45,57 @@ public class GameManager : MonoBehaviour
     {
         if (gameRunning)
         {
-            ScoreText.text = playerMovement.CurrentScore.ToString() + " x" + TurningScript.currentScoreMultiplier;
+            ScoreText.text = playerMovement.CurrentScore.ToString() + " x" + playerMovement.currentScoreMultiplier;
         }
+         switch (playerMovement.currentScoreMultiplier)
+            {
+                case 1.0f:
+                {
+                    leftImages[0].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+                    leftImages[1].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+                    leftImages[2].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+                    rightImages[0].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+                    rightImages[1].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+                    rightImages[2].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+                    break;
+                }
+                case 2.0f:
+                {
+                    float scale = (playerMovement.SpeedDecreaseTime - playerMovement.currentTime) / playerMovement.SpeedDecreaseTime;
+                    leftImages[0].rectTransform.localScale = new Vector3(scale, scale, scale);
+                    leftImages[1].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+                    leftImages[2].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+                    rightImages[0].rectTransform.localScale = new Vector3(scale, scale, scale);
+                    rightImages[1].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+                    rightImages[2].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+                    break;
+                }
+                case 3.0f:
+                {
+                    float scale = (playerMovement.SpeedDecreaseTime - playerMovement.currentTime) / playerMovement.SpeedDecreaseTime;
+                    leftImages[0].rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    leftImages[1].rectTransform.localScale = new Vector3(scale, scale, scale);
+                    leftImages[2].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+                    rightImages[0].rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    rightImages[1].rectTransform.localScale = new Vector3(scale, scale, scale);
+                    rightImages[2].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+                    break;
+                }
+                case 4.0f:
+                {
+                    float scale = (playerMovement.SpeedDecreaseTime - playerMovement.currentTime) / playerMovement.SpeedDecreaseTime;
+                    leftImages[0].rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    leftImages[1].rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    leftImages[2].rectTransform.localScale = new Vector3(scale, scale, scale);
+                    rightImages[0].rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    rightImages[1].rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    rightImages[2].rectTransform.localScale = new Vector3(scale, scale, scale);
+                    break;
+                }
+                default:
+                    break;
+            }
+        
     }
 
     public void TriggerGameOver()
@@ -52,6 +106,7 @@ public class GameManager : MonoBehaviour
         HealthBar.SetActive(false);
         DeathScreen.SetActive(true);
         Score.SetActive(false);
+        hideAllSprites();
         FinalScore.text = "Final Score: " + playerMovement.CurrentScore.ToString();
         if(Leaderboard.Instance != null)
         {
@@ -60,6 +115,17 @@ public class GameManager : MonoBehaviour
             HighScore.text = "High Score: " + Leaderboard.Instance.currentUserScore.ToString();
         }
         
+    }
+
+    private void hideAllSprites()
+    {
+        leftImages[0].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+        leftImages[1].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+        leftImages[2].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+        rightImages[0].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+        rightImages[1].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+        rightImages[2].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+        bird.rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
     }
 
     public void Restart()

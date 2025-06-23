@@ -20,7 +20,7 @@ public class TurningScript : MonoBehaviour
     //public float speedIncrease = 0.6f;
     //public float actualFlySpeed;
     public float SpeedDecreaseTime;
-    private float currentTime = 0;
+    public float currentTime = 0;
 
     [Header("Screen Shake")]
     public float screenShakeDuration = 1.0f;
@@ -81,7 +81,7 @@ public class TurningScript : MonoBehaviour
     [Header("Temp")]
     public float currentSpeed;
     public float currentFOV;
-    public static float currentScoreMultiplier = 1.0f;
+    public float currentScoreMultiplier = 1.0f;
     [SerializeField]
     private int CurrentSpeedLevel;
 
