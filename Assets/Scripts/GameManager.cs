@@ -26,6 +26,11 @@ public class GameManager : MonoBehaviour
     public RawImage[] leftImages;
     public RawImage[] rightImages;
 
+    public GameObject LeaderBoard;
+
+    public TextMeshProUGUI CurrentPlacement;
+    public TextMeshProUGUI HighScore;
+
     void Start()
     {
         Instance = this;
@@ -85,7 +90,6 @@ public class GameManager : MonoBehaviour
                 }
                 default:
                     break;
-                
             }
         }
     }
@@ -98,7 +102,14 @@ public class GameManager : MonoBehaviour
         HealthBar.SetActive(false);
         DeathScreen.SetActive(true);
         Score.SetActive(false);
-        FinalScore.text = "Final Score: " + ScoreText.text;
+        FinalScore.text = "Final Score: " + playerMovement.CurrentScore.ToString();
+        if(Leaderboard.Instance != null)
+        {
+            if(Leaderboard.Instance.currentUserScore < playerMovement.CurrentScore) Leaderboard.Instance.currentUserScore = playerMovement.CurrentScore;
+            CurrentPlacement.text = Leaderboard.Instance.GetCurrentScorePlace().ToString();
+            HighScore.text = "High Score: " + Leaderboard.Instance.currentUserScore.ToString();
+        }
+        
     }
 
     public void Restart()
@@ -108,6 +119,24 @@ public class GameManager : MonoBehaviour
 
     public void Exit()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
+    }
+
+    public void SaveScore()
+    {
+        Debug.Log(Leaderboard.Instance);
+        Leaderboard.Instance?.SaveCurrentScore();
+    }
+
+    public void ShowLeaderboard()
+    {
+        LeaderBoard.SetActive(true);
+        DeathScreen.SetActive(false);
+    }
+
+    public void HideLeaderboard()
+    {
+        LeaderBoard.SetActive(false);
+        DeathScreen.SetActive(true);
     }
 }
