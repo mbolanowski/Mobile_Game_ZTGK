@@ -23,6 +23,7 @@ public class PlayerHealth : MonoBehaviour
     {
         afterHitTime += Time.fixedDeltaTime;
         ModifyHealth(-healthLossRate * Time.fixedDeltaTime);
+        //ModifyHealth(-healthLossRate * Time.fixedDeltaTime);
     }
 
     public void TakeDamage(float damage)
@@ -52,11 +53,23 @@ public class PlayerHealth : MonoBehaviour
     {
         DamageSource damageSource = other.gameObject.GetComponent<DamageSource>();
         if(damageSource != null)
+        if(damageSource != null && afterHitTime >= invTimeAfterHit)
         {
+<<<<<<< Updated upstream
+=======
+            afterHitTime = 0.0f;
+            if(!turningScript.TookHit()) GameManager.Instance.TriggerGameOver();
+            turningScript.RunScreenShake();
+            Destroy(damageSource.gameObject);
+
+            /*Debug.Log("???");
+>>>>>>> Stashed changes
             TakeDamage(damageSource.DamageValue);
             Destroy(damageSource.gameObject);
             //Handheld.Vibrate();
             turningScript.RunScreenShake();
+            turningScript.RunScreenShake();*/
+
         }
     }
 

@@ -7741,7 +7741,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 100
-  invTimeAfterHit: 0.25
+  invTimeAfterHit: 1
   healthbarScript: {fileID: 608874743}
   healthLossRate: 5
   turningScript: {fileID: 1628430535}
@@ -7757,23 +7757,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ffdea1e84c74714bacc5c63e9cc608e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  XMargin: 25
-  YMargin: 25
-  BoxHeight: 450
+  XMargin: 15
+  YMargin: 15
+  BoxHeight: 5000
+  StartSpeedLevel: 1
+  SpeedLevels:
+  - 5
+  - 7
+  - 9
+  - 11
+  - 14
+  - 18
+  - 23
+  - 27
+  SideSpeedLevels:
+  - 9.5
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
   MaxLeanAngle: 50
   MaxSideSpeed: 10
-  FlySpeed: 10
   rotationSpeed: 120
-  speedIncrease: 1
-  actualFlySpeed: 0
   screenShakeDuration: 0.5
   screenShakeAmount: 0.03
+  BoostIncrease: 3
+  BoostDurationIncrease: 0.5
+  BoostDurationPeak: 0.2
+  BoostDurationDecrease: 1
+  baseDistanceScoreMultiplier: 10
+  multiplierIncrease: 1
+  SpeedLevelsFOVs:
+  - 60
+  - 70
+  - 75
+  - 80
+  - 85
+  - 90
+  - 95
+  - 100
+  BoostFOVIncrease: 20
   birdRotationTransform: {fileID: 177121342}
   playerCamera: {fileID: 330585545}
-  boostFOVIncrease: 5
-  boostLerpSpeed: 10
   isDead: 0
   pickupParticles: {fileID: 1284109257}
+  currentSpeed: 0
+  currentFOV: 0
+  currentScoreMultiplier: 1
+  CurrentSpeedLevel: 0
 --- !u!114 &1628430536
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     {
         if (gameRunning)
         {
-            ScoreText.text = ScoreCounter.Instance.GetScore().ToString();
+            ScoreText.text = TurningScript.CurrentScore.ToString() + " x" + TurningScript.currentScoreMultiplier;
         }
     }
 

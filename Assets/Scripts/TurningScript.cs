@@ -10,12 +10,15 @@ public class TurningScript : MonoBehaviour
     public int BoxHeight;
 
     [Header("Movement")]
+    public int StartSpeedLevel;
+    public float[] SpeedLevels;
+    public float[] SideSpeedLevels;
     public float MaxLeanAngle;
     public float MaxSideSpeed;
-    public float FlySpeed;
+    //public float FlySpeed;
     public float rotationSpeed;
-    public float speedIncrease = 0.6f;
-    public float actualFlySpeed;
+    //public float speedIncrease = 0.6f;
+    //public float actualFlySpeed;
 
     [Header("Screen Shake")]
     public float screenShakeDuration = 1.0f;
@@ -24,15 +27,27 @@ public class TurningScript : MonoBehaviour
     private bool isShaking = false;
 
     [Header("Boost")]
-    public Transform birdRotationTransform;
-    public Camera playerCamera;
-    public float boostFOVIncrease = 20f; // How much to increase FOV during boost
-    public float boostLerpSpeed = 10f; // Speed of the initial burst lerp
+    public float BoostIncrease;
+    public float BoostDurationIncrease;
+    public float BoostDurationPeak;
+    public float BoostDurationDecrease;
+    private bool isBoosting = false;
+
+    [Header("Score")]
+    public float baseDistanceScoreMultiplier = 1.0f;
+    public float multiplierIncrease = 1.0f;
+
+    [Header("FoV change")]
+    public float[] SpeedLevelsFOVs;
+    public float BoostFOVIncrease;
 
     [Header("Others")]
+    public Transform birdRotationTransform;
+    public Camera playerCamera;
+    //public float boostFOVIncrease = 20f; // How much to increase FOV during boost
+    //public float boostLerpSpeed = 10f; // Speed of the initial burst lerp
     public bool isDead = false;
     public ParticleSystem pickupParticles;
-
 
     private const float minError = 0.01f;
 
@@ -48,36 +63,45 @@ public class TurningScript : MonoBehaviour
     private float targetLeanPer;
     private float currentLeanPer = 0.0f;
 
-    
-
     // Boost variables
-    private bool isBoosting = false;
-    private float boostSpeedMultiplier = 2.0f; // Multiplier for the burst of speed
-    private float boostDuration = 0.5f; // Duration of the burst
-    private float boostCooldown = 2.0f; // Cooldown before returning to normal
-    private float boostTimer = 0.0f;
-    private float baseFlySpeed; // This will be our permanent base speed that increases
-    private float originalFOV; // Store the original camera FOV
+    
+    //private float boostSpeedMultiplier = 2.0f; // Multiplier for the burst of speed
+    //private float boostDuration = 0.5f; // Duration of the burst
+    //private float boostCooldown = 2.0f; // Cooldown before returning to normal
+    
+    //private float baseFlySpeed; // This will be our permanent base speed that increases
+    //private float originalFOV; // Store the original camera FOV
+
+    public static int CurrentScore = 0;
 
     
+    private float targetSpeed;
+
+    [Header("Temp")]
+    public float currentSpeed;
+    public float currentFOV;
+    public static float currentScoreMultiplier = 1.0f;
+    [SerializeField]
+    private int CurrentSpeedLevel;
+
+    private Coroutine currentBoost;
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
+
         Rectangle = new Rectangle(XMargin, YMargin, Screen.width - 2 * XMargin, BoxHeight);
         halfXpos = (float)Rectangle.Width * 0.5f;
         xMult = 2.0f / (float)Rectangle.Width;
         baseRotation = birdRotationTransform.localEulerAngles;
         defualtPos = new Vector2(halfXpos, 0);
 
-        baseFlySpeed = FlySpeed;
+        CurrentSpeedLevel = StartSpeedLevel < SpeedLevels.Length ? StartSpeedLevel : SpeedLevels.Length - 1;
+        currentSpeed = SpeedLevels[CurrentSpeedLevel];
 
-        if (playerCamera != null)
-        {
-            originalFOV = playerCamera.fieldOfView;
-        }
-        actualFlySpeed = FlySpeed;
+        if(playerCamera != null) currentFOV = playerCamera.fieldOfView;
     }
 
     // Update is called once per frame
@@ -85,45 +109,6 @@ public class TurningScript : MonoBehaviour
     {
         if (isDead) return;
         HandleTouchInput();
-
-        if (isBoosting)
-        {
-            boostTimer += Time.deltaTime;
-
-            if (boostTimer < boostDuration)
-            {
-                float targetSpeed = baseFlySpeed * boostSpeedMultiplier;
-                FlySpeed = Mathf.Lerp(FlySpeed, targetSpeed, boostLerpSpeed * Time.deltaTime);
-
-                if (playerCamera != null)
-                {
-                    float targetFOV = originalFOV + boostFOVIncrease;
-                    playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, targetFOV, boostLerpSpeed * Time.deltaTime);
-                }
-            }
-            else if (boostTimer < boostDuration + boostCooldown)
-            {
-                FlySpeed = Mathf.Lerp(FlySpeed, baseFlySpeed * 1.2f, Time.deltaTime);
-
-                // Gradually return FOV to normal
-                if (playerCamera != null)
-                {
-                    float targetFOV = originalFOV;
-                    playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, targetFOV - 1f, Time.deltaTime);
-                }
-            }
-            else
-            {
-                FlySpeed = baseFlySpeed * 1.2f;
-
-                if (playerCamera != null)
-                {
-                    playerCamera.fieldOfView = originalFOV;
-                }
-
-                isBoosting = false;
-            }
-        }
     }
     IEnumerator ScreenShake()
     {
@@ -157,13 +142,19 @@ public class TurningScript : MonoBehaviour
         if (isDead) return;
         if (leanChanged) UpdateLean();
         Move();
+        UpdateScore();
+    }
+
+    private void UpdateScore()
+    {
+        CurrentScore += (int)(currentSpeed * Time.fixedDeltaTime * baseDistanceScoreMultiplier * currentScoreMultiplier);
     }
 
     private void Move()
     {
         Vector3 currentPos = transform.position;
         currentPos.x -= MaxSideSpeed * Time.fixedDeltaTime * currentLeanPer;
-        currentPos.z -= FlySpeed * Time.fixedDeltaTime;
+        currentPos.z -= currentSpeed * Time.fixedDeltaTime;
         rb.MovePosition(currentPos);
         //rb.MovePosition(new Vector3(0f,0f,0f));
     }
@@ -227,18 +218,71 @@ public class TurningScript : MonoBehaviour
         }
     }
 
+    IEnumerator Boost()
+    {
+        isBoosting = true;
+        float speedDif1 = (targetSpeed - currentSpeed)/BoostDurationIncrease;
+        float FOVdif1 = ((SpeedLevelsFOVs[CurrentSpeedLevel] + BoostFOVIncrease) - currentFOV) / BoostDurationIncrease;
+        while(currentSpeed < targetSpeed)
+        {
+            currentSpeed = Mathf.Min(currentSpeed + speedDif1 * Time.fixedDeltaTime, targetSpeed);
+            currentFOV = Mathf.Min(currentFOV + FOVdif1 * Time.fixedDeltaTime, (SpeedLevelsFOVs[CurrentSpeedLevel] + BoostFOVIncrease));
+            playerCamera.fieldOfView = currentFOV;
+            yield return new WaitForFixedUpdate();
+        }
+        yield return new WaitForSeconds(BoostDurationPeak);
+        float finalTarget = SpeedLevels[CurrentSpeedLevel];
+        float speedDif2 = (currentSpeed - finalTarget)/BoostDurationDecrease;
+        float FOVdif2 = (currentFOV - SpeedLevelsFOVs[CurrentSpeedLevel]) / BoostDurationDecrease;
+        while (currentSpeed > finalTarget)
+        {
+            currentSpeed = Mathf.Max(currentSpeed - speedDif2 * Time.fixedDeltaTime, finalTarget);
+            currentFOV = Mathf.Max(currentFOV - FOVdif2 * Time.fixedDeltaTime, SpeedLevelsFOVs[CurrentSpeedLevel]);
+            playerCamera.fieldOfView = currentFOV;
+            yield return new WaitForFixedUpdate();
+        }
+        isBoosting = false;
+    }
+
+    public bool TookHit()
+    {
+        if(CurrentSpeedLevel == 0) return false;
+        if (isBoosting)
+        {
+            StopCoroutine(currentBoost);
+            isBoosting=false;
+        }
+        CurrentSpeedLevel--;
+        currentScoreMultiplier = 1.0f;
+        currentSpeed = SpeedLevels[CurrentSpeedLevel];
+        currentFOV = SpeedLevelsFOVs[CurrentSpeedLevel];
+        playerCamera.fieldOfView = currentFOV;
+        MaxSideSpeed = SideSpeedLevels[CurrentSpeedLevel];
+        return true;
+    }
+
     public void BoostSpeed()
     {
-        baseFlySpeed += speedIncrease;
-        actualFlySpeed += speedIncrease;
-
-        pickupParticles.Play();
-        //Handheld.Vibrate();
-
-        if (!isBoosting)
+        if(CurrentSpeedLevel < SpeedLevels.Length - 1)
         {
-            isBoosting = true;
-            boostTimer = 0.0f;
+            CurrentSpeedLevel++;
+        } 
+        else
+        {
+            currentScoreMultiplier += multiplierIncrease;
         }
+        targetSpeed = SpeedLevels[CurrentSpeedLevel] + BoostIncrease;
+
+        if (isBoosting)
+        {
+            StopCoroutine(currentBoost);
+            currentBoost = StartCoroutine("Boost");
+        } 
+        else
+        {
+            currentBoost = StartCoroutine("Boost");
+        }
+        MaxSideSpeed = SideSpeedLevels[CurrentSpeedLevel];
+        pickupParticles.Play();
     }
 }
