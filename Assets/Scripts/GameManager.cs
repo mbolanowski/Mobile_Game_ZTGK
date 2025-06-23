@@ -1,13 +1,15 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
     public TurningScript playerMovement;
-
+    
     public GameObject HealthBar;
     public GameObject DeathScreen;
     public GameObject Score;
@@ -19,6 +21,10 @@ public class GameManager : MonoBehaviour
     private bool gameRunning = true;
 
     public Animator animator;
+    
+    [Header("Multiplier Sprites")]
+    public RawImage[] leftImages;
+    public RawImage[] rightImages;
 
     void Start()
     {
@@ -31,7 +37,56 @@ public class GameManager : MonoBehaviour
     {
         if (gameRunning)
         {
-            ScoreText.text = TurningScript.CurrentScore.ToString() + " x" + TurningScript.currentScoreMultiplier;
+            ScoreText.text = playerMovement.CurrentScore.ToString() + " x" + playerMovement.currentScoreMultiplier;
+            switch (playerMovement.currentScoreMultiplier)
+            {
+                case 1.0f:
+                {
+                    leftImages[0].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+                    leftImages[1].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+                    leftImages[2].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+                    rightImages[0].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+                    rightImages[1].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+                    rightImages[2].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+                    break;
+                }
+                case 2.0f:
+                {
+                    float scale = (playerMovement.SpeedDecreaseTime - playerMovement.currentTime) / playerMovement.SpeedDecreaseTime;
+                    leftImages[0].rectTransform.localScale = new Vector3(scale, scale, scale);
+                    leftImages[1].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+                    leftImages[2].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+                    rightImages[0].rectTransform.localScale = new Vector3(scale, scale, scale);
+                    rightImages[1].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+                    rightImages[2].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+                    break;
+                }
+                case 3.0f:
+                {
+                    float scale = (playerMovement.SpeedDecreaseTime - playerMovement.currentTime) / playerMovement.SpeedDecreaseTime;
+                    leftImages[0].rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    leftImages[1].rectTransform.localScale = new Vector3(scale, scale, scale);
+                    leftImages[2].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+                    rightImages[0].rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    rightImages[1].rectTransform.localScale = new Vector3(scale, scale, scale);
+                    rightImages[2].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+                    break;
+                }
+                case 4.0f:
+                {
+                    float scale = (playerMovement.SpeedDecreaseTime - playerMovement.currentTime) / playerMovement.SpeedDecreaseTime;
+                    leftImages[0].rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    leftImages[1].rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    leftImages[2].rectTransform.localScale = new Vector3(scale, scale, scale);
+                    rightImages[0].rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    rightImages[1].rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    rightImages[2].rectTransform.localScale = new Vector3(scale, scale, scale);
+                    break;
+                }
+                default:
+                    break;
+                
+            }
         }
     }
 
