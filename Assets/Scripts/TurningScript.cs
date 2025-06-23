@@ -76,7 +76,6 @@ public class TurningScript : MonoBehaviour
 
     public static int CurrentScore = 0;
 
-    
     private float targetSpeed;
 
     [Header("Temp")]
