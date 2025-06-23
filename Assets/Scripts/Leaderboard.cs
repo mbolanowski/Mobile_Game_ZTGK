@@ -58,7 +58,7 @@ public class Leaderboard : MonoBehaviour
     {
         PlayerEntry newEntry = new PlayerEntry();
         newEntry.Score = currentUserScore;
-        if(username.Length == 0)
+        if(username.Length < 3)
         {
             username = "PLAYER_NO_" + playerScores.Count;
         }

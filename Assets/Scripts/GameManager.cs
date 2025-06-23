@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,6 +25,9 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI CurrentPlacement;
     public TextMeshProUGUI HighScore;
+
+    public GameObject ScoreSaving;
+    public TMP_InputField field;
 
     void Start()
     {
@@ -70,8 +74,9 @@ public class GameManager : MonoBehaviour
 
     public void SaveScore()
     {
-        Debug.Log(Leaderboard.Instance);
-        Leaderboard.Instance?.SaveCurrentScore();
+        Debug.Log(field.text);
+        Leaderboard.Instance?.SaveCurrentScore(field.text);
+        HideSaveScore();
     }
 
     public void ShowLeaderboard()
@@ -85,4 +90,19 @@ public class GameManager : MonoBehaviour
         LeaderBoard.SetActive(false);
         DeathScreen.SetActive(true);
     }
+
+    public void ShowSaveScore()
+    {
+        ScoreSaving.SetActive(true);
+        DeathScreen.SetActive(false);
+        field.Select();
+    }
+
+    public void HideSaveScore()
+    {
+        ScoreSaving.SetActive(false);
+        DeathScreen.SetActive(true);
+        field.text = "";
+    }
 }
+
