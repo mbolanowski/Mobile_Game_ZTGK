@@ -2318,6 +2318,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &602108741 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9147685669817653679, guid: 6d981c7c5385e2e4d8adceea380a3691, type: 3}
+  m_PrefabInstance: {fileID: 1028376904}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &608874741
 GameObject:
   m_ObjectHideFlags: 0
@@ -2914,9 +2919,9 @@ MonoBehaviour:
   - {fileID: 9147685669817653679, guid: 6d981c7c5385e2e4d8adceea380a3691, type: 3}
   - {fileID: 9147685669817653679, guid: cfb1aa573f09d384aa66eb569949f7d1, type: 3}
   - {fileID: 9147685669817653679, guid: a6374a4d80c798c469b3279ad7eaae9f, type: 3}
-  nextSpawn: {fileID: 1650313297}
-  nextSpawnR: {fileID: 1121928446}
-  zScaleFactor: 0.6
+  nextSpawn: {fileID: 1592997954}
+  nextSpawnR: {fileID: 602108741}
+  zScaleFactor: 0
   LastSpawned: 100
 --- !u!4 &782694956
 Transform:
@@ -5285,11 +5290,6 @@ RectTransform:
   m_AnchoredPosition: {x: -345, y: 0}
   m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1121928446 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 665306637191525515, guid: 6d981c7c5385e2e4d8adceea380a3691, type: 3}
-  m_PrefabInstance: {fileID: 1028376904}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1148230922
 GameObject:
   m_ObjectHideFlags: 0
@@ -7410,6 +7410,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1592997954 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9147685669817653679, guid: 3b1f5b57cb92b844e8cae05b673bd8bc, type: 3}
+  m_PrefabInstance: {fileID: 1077439717}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1599916650 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 19a6047a3b6c8e34d9d2d46cccb15292, type: 3}
@@ -7806,7 +7811,6 @@ MonoBehaviour:
   pickupParticles: {fileID: 1284109257}
   currentSpeed: 0
   currentFOV: 0
-  currentScoreMultiplier: 1
   CurrentSpeedLevel: 0
 --- !u!114 &1628430536
 MonoBehaviour:
@@ -7821,11 +7825,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DistanceToScoreRatio: 10
---- !u!1 &1650313297 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2093373341462697372, guid: 3b1f5b57cb92b844e8cae05b673bd8bc, type: 3}
-  m_PrefabInstance: {fileID: 1077439717}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1730724975 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400124, guid: 0646ceebc81f52a4e8a676e94ab46092, type: 3}

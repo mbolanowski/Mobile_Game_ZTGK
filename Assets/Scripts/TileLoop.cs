@@ -76,7 +76,7 @@ public class TileLoop : MonoBehaviour
                     int randomIndex = UnityEngine.Random.Range(0, tilePrefabs.Count);
                     GameObject randomPrefab = tilePrefabs[randomIndex];
 
-                    float scaleZ = zScaleFactor * (ts.actualFlySpeed / baseFlySpeed);
+                    float scaleZ = zScaleFactor * (ts.currentSpeed / baseFlySpeed);
                     Vector3 spawnPos = new Vector3(currentPos.x, currentPos.y, manager.nextSpawn.transform.position.z);
 
                     SpawnStretchedTile(randomPrefab, spawnPos, scaleZ);
@@ -94,7 +94,7 @@ public class TileLoop : MonoBehaviour
                     int randomIndex = manager.LastSpawned;
                     GameObject randomPrefab = tilePrefabsR[randomIndex];
 
-                    float scaleZ = zScaleFactor * (ts.actualFlySpeed / baseFlySpeed);
+                    float scaleZ = zScaleFactor * (ts.currentSpeed / baseFlySpeed);
                     Vector3 spawnPos = new Vector3(currentPos.x, currentPos.y, manager.nextSpawnR.transform.position.z);
 
                     SpawnStretchedTile(randomPrefab, spawnPos, scaleZ);
