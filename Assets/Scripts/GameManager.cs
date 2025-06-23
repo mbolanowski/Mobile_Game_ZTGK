@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     {
         if (gameRunning)
         {
-            ScoreText.text = TurningScript.CurrentScore.ToString() + " x" + TurningScript.currentScoreMultiplier;
+            ScoreText.text = playerMovement.CurrentScore.ToString() + " x" + TurningScript.currentScoreMultiplier;
         }
     }
 
@@ -48,10 +48,10 @@ public class GameManager : MonoBehaviour
         HealthBar.SetActive(false);
         DeathScreen.SetActive(true);
         Score.SetActive(false);
-        FinalScore.text = "Final Score: " + TurningScript.CurrentScore.ToString();
+        FinalScore.text = "Final Score: " + playerMovement.CurrentScore.ToString();
         if(Leaderboard.Instance != null)
         {
-            if(Leaderboard.Instance.currentUserScore < TurningScript.CurrentScore) Leaderboard.Instance.currentUserScore = TurningScript.CurrentScore;
+            if(Leaderboard.Instance.currentUserScore < playerMovement.CurrentScore) Leaderboard.Instance.currentUserScore = playerMovement.CurrentScore;
             CurrentPlacement.text = Leaderboard.Instance.GetCurrentScorePlace().ToString();
             HighScore.text = "High Score: " + Leaderboard.Instance.currentUserScore.ToString();
         }

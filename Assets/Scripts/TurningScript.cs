@@ -74,7 +74,7 @@ public class TurningScript : MonoBehaviour
     //private float baseFlySpeed; // This will be our permanent base speed that increases
     //private float originalFOV; // Store the original camera FOV
 
-    public static int CurrentScore = 0;
+    public int CurrentScore = 0;
 
     private float targetSpeed;
 
