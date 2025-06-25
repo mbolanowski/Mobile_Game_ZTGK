@@ -87,19 +87,19 @@ public class TileLoop : MonoBehaviour
                     switch (ts.CurrentSpeedLevel)
                     {
                         case 0:
-                            scaleZ = 0.9f; // Example value for speed level 0
+                            scaleZ = 0.89f; // Example value for speed level 0
                             break;
                         case 1:
-                            scaleZ = 0.91f; // Example value for speed level 1
+                            scaleZ = 0.90f; // Example value for speed level 1
                             break;
                         case 2:
-                            scaleZ = 0.92f; // Example value for speed level 2
+                            scaleZ = 0.91f; // Example value for speed level 2
                             break;
                         case 3:
-                            scaleZ = 0.94f; // Example value for speed level 3
+                            scaleZ = 0.92f; // Example value for speed level 3
                             break;
                         case 4:
-                            scaleZ = 0.94f; // Example value for speed level 4
+                            scaleZ = 0.92f; // Example value for speed level 4
                             break;
                         default:
                             scaleZ = 1.0f; // Fallback value

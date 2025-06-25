@@ -1043,7 +1043,7 @@ Transform:
   m_GameObject: {fileID: 177121341}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1554, z: -0.1445}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1885,7 +1885,10 @@ MonoBehaviour:
   HealthBar: {fileID: 0}
   DeathScreen: {fileID: 0}
   Score: {fileID: 0}
+  Multi: {fileID: 0}
+  SpeedIndicators: {fileID: 0}
   FinalScore: {fileID: 0}
+  speedText: {fileID: 0}
   animator: {fileID: 1730724976}
   LeaderBoard: {fileID: 0}
   CurrentPlacement: {fileID: 0}
@@ -2635,7 +2638,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilePrefabs:
-  - {fileID: 9147685669817653679, guid: fceb31618b8f6164294b8109beb735d6, type: 3}
+  - {fileID: 9147685669817653679, guid: 5c910561cb57b104fb5c4a141bc8cf9c, type: 3}
   tilePrefabsR:
   - {fileID: 9147685669817653679, guid: c330769c65542934db06e3746a96aedb, type: 3}
   nextSpawn: {fileID: 1812183420}
@@ -6386,10 +6389,18 @@ MonoBehaviour:
   playerCamera: {fileID: 330585545}
   isDead: 0
   pickupParticles: {fileID: 1284109257}
+  speedBarImages: []
+  maxBarScale: {x: 0.72, y: 0.72, z: 0.72}
+  minBarScale: {x: 0, y: 0, z: 0}
+  ps: {fileID: 0}
+  particleEmissions: []
+  particleLengths: []
+  speedDeacreaseTimes: []
   CurrentScore: 0
   currentSpeed: 0
   currentFOV: 0
   currentScoreMultiplier: 1
+  timeToScoreRatio: 1
   CurrentSpeedLevel: 0
 --- !u!114 &1628430536
 MonoBehaviour:
@@ -6403,7 +6414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b153f894ce6821844a9975495910f2c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DistanceToScoreRatio: 10
+  TimeToScoreRatio: 1
 --- !u!4 &1730724975 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400124, guid: 0646ceebc81f52a4e8a676e94ab46092, type: 3}

@@ -75,6 +75,14 @@ public class TurningScript : MonoBehaviour
     private List<Tween> speedBarTweens = new List<Tween>();
     private int lastSpeedLevel = -1;
 
+    public ParticleSystem ps;
+    public float[] particleEmissions;
+    public float[] particleLengths;
+
+
+
+    public float[] speedDeacreaseTimes;
+
     // Boost variables
 
     //private float boostSpeedMultiplier = 2.0f; // Multiplier for the burst of speed
@@ -179,7 +187,7 @@ public float timeToScoreRatio = 1.0f;
         currentPos.z -= currentSpeed * Time.fixedDeltaTime;
         rb.MovePosition(currentPos);
         //rb.MovePosition(new Vector3(0f,0f,0f));
-        if(SpeedDecreaseTime < currentTime)
+        if (speedDeacreaseTimes[CurrentSpeedLevel] < currentTime)
         {
             if(!TookHit())GameManager.Instance.TriggerGameOver();
         }
@@ -283,10 +291,18 @@ public float timeToScoreRatio = 1.0f;
         currentScoreMultiplier = 1.0f;
         currentSpeed = SpeedLevels[CurrentSpeedLevel];
         currentFOV = SpeedLevelsFOVs[CurrentSpeedLevel];
-        playerCamera.fieldOfView = currentFOV;
+        DOTween.Kill(playerCamera); // Cancel any ongoing FOV tweens
+        DOTween.To(
+            () => playerCamera.fieldOfView,
+            x => playerCamera.fieldOfView = x,
+            SpeedLevelsFOVs[CurrentSpeedLevel],
+            0.5f // duration in seconds, adjust as needed
+        ).SetEase(Ease.OutQuad);
+        
         MaxSideSpeed = SideSpeedLevels[CurrentSpeedLevel];
         currentTime = 0;
         UpdateSpeedBarVisibility();
+        UpdateParticleSettings();
         return true;
     }
 
@@ -315,6 +331,7 @@ public float timeToScoreRatio = 1.0f;
         MaxSideSpeed = SideSpeedLevels[CurrentSpeedLevel];
         pickupParticles.Play();
         UpdateSpeedBarVisibility();
+        UpdateParticleSettings();
     }
 
     private void UpdateSpeedBarVisibility()
@@ -354,9 +371,21 @@ public float timeToScoreRatio = 1.0f;
     {
         if (CurrentSpeedLevel >= speedBarImages.Count) return;
 
-        float ratio = Mathf.Clamp01((SpeedDecreaseTime - currentTime) / SpeedDecreaseTime);
+        float levelDecreaseTime = speedDeacreaseTimes[CurrentSpeedLevel];
+        float ratio = Mathf.Clamp01((levelDecreaseTime - currentTime) / levelDecreaseTime);
         Vector3 targetScale = Vector3.Lerp(minBarScale, maxBarScale, ratio);
 
         AnimateSpeedBar(CurrentSpeedLevel, targetScale, 0.1f);
+    }
+
+    private void UpdateParticleSettings()
+    {
+        if (ps == null || CurrentSpeedLevel >= particleEmissions.Length) return;
+
+        var renderer = ps.GetComponent<ParticleSystemRenderer>();
+        renderer.lengthScale = particleLengths[CurrentSpeedLevel];
+
+        var emission = ps.emission;
+        emission.rateOverTime = particleEmissions[CurrentSpeedLevel];
     }
 }

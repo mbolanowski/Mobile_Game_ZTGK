@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.Windows.Speech;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -33,6 +34,10 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI CurrentPlacement;
     public TextMeshProUGUI HighScore;
+    public TextMeshProUGUI info;
+    public TextMeshProUGUI percent;
+    public RawImage distance;
+    public RawImage timeBarFill;
 
     public GameObject ScoreSaving;
     public TMP_InputField field;
@@ -44,6 +49,9 @@ public class GameManager : MonoBehaviour
 
     private float lastMultiplier = 1.0f;
     private Tween multiTextTween;
+
+    private float elapsedTime = 0f;
+    public float maxGameTime = 120f;
 
     void Start()
     {
@@ -59,6 +67,26 @@ public class GameManager : MonoBehaviour
     {
         if (gameRunning)
         {
+            elapsedTime += Time.fixedDeltaTime;
+            float percentElapsed = (elapsedTime / maxGameTime) * 100f;
+            percent.text = percentElapsed.ToString("F0") + "%";
+
+            float progress = Mathf.Clamp01(elapsedTime / maxGameTime);
+            // Tween the timeBarFill scale smoothly
+            Vector3 targetScale = new Vector3(progress * 6.45f, 0.1f, 0.23f);
+            timeBarFill.rectTransform.DOScale(targetScale, 0.3f).SetEase(Ease.Linear);
+
+            float newX = Mathf.Lerp(-43f, 605f, progress);
+
+            Vector2 pos = percent.rectTransform.anchoredPosition;
+            pos.x = newX;
+            percent.rectTransform.anchoredPosition = pos;
+
+            if (elapsedTime >= maxGameTime)
+            {
+                GameWon();
+                return;
+            }
             //ScoreText.text = playerMovement.CurrentScore.ToString() + " x" + playerMovement.currentScoreMultiplier;
             ScoreText.text = playerMovement.CurrentScore.ToString();
             float multiplier = playerMovement.currentScoreMultiplier;
@@ -163,7 +191,11 @@ public class GameManager : MonoBehaviour
         Score.SetActive(false);
         Multi.SetActive(false);
         SpeedIndicators.SetActive(false);
+        distance.gameObject.SetActive(false);
+        timeBarFill.gameObject.SetActive(false);
+        info.text = "Game Over";
         speedText.text = "";
+        percent.text = "";
         hideAllSprites();
         FinalScore.text = "Final Score: " + playerMovement.CurrentScore.ToString();
         if(Leaderboard.Instance != null)
@@ -173,6 +205,32 @@ public class GameManager : MonoBehaviour
             HighScore.text = "High Score: " + Leaderboard.Instance.currentUserScore.ToString();
         }
         
+    }
+    public void GameWon()
+    {
+        gameRunning = false;
+        animator.enabled = false;
+        playerMovement.isDead = true;
+        HealthBar.SetActive(false);
+        DeathScreen.SetActive(true);
+        Score.SetActive(false);
+        Multi.SetActive(false);
+        SpeedIndicators.SetActive(false);
+        distance.gameObject.SetActive(false);
+        timeBarFill.gameObject.SetActive(false);
+        info.text = "You Won";
+        speedText.text = "";
+        percent.text = "";
+        hideAllSprites();
+        FinalScore.text = "Final Score: " + playerMovement.CurrentScore.ToString();
+        if (Leaderboard.Instance != null)
+        {
+            if (Leaderboard.Instance.currentUserScore < playerMovement.CurrentScore)
+                Leaderboard.Instance.currentUserScore = playerMovement.CurrentScore;
+
+            CurrentPlacement.text = Leaderboard.Instance.GetCurrentScorePlace().ToString();
+            HighScore.text = "High Score: " + Leaderboard.Instance.currentUserScore.ToString();
+        }
     }
 
     private void hideAllSprites()
