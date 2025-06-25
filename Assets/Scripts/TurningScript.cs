@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Drawing;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
+using System.Collections.Generic;
 
 public class TurningScript : MonoBehaviour
 {
@@ -65,12 +68,19 @@ public class TurningScript : MonoBehaviour
     private float targetLeanPer;
     private float currentLeanPer = 0.0f;
 
+    [Header("UI")]
+    public List<RawImage> speedBarImages = new List<RawImage>();
+    public Vector3 maxBarScale = new Vector3(0.72f, 0.72f, 0.72f);
+    public Vector3 minBarScale = new Vector3(0.0f, 0f, 0f);
+    private List<Tween> speedBarTweens = new List<Tween>();
+    private int lastSpeedLevel = -1;
+
     // Boost variables
-    
+
     //private float boostSpeedMultiplier = 2.0f; // Multiplier for the burst of speed
     //private float boostDuration = 0.5f; // Duration of the burst
     //private float boostCooldown = 2.0f; // Cooldown before returning to normal
-    
+
     //private float baseFlySpeed; // This will be our permanent base speed that increases
     //private float originalFOV; // Store the original camera FOV
 
@@ -82,6 +92,9 @@ public class TurningScript : MonoBehaviour
     public float currentSpeed;
     public float currentFOV;
     public float currentScoreMultiplier = 1.0f;
+
+    private float scoreElapsedTime = 0f;
+public float timeToScoreRatio = 1.0f;
 
     [SerializeField]
     public int CurrentSpeedLevel;
@@ -104,6 +117,11 @@ public class TurningScript : MonoBehaviour
         currentSpeed = SpeedLevels[CurrentSpeedLevel];
 
         if(playerCamera != null) currentFOV = playerCamera.fieldOfView;
+
+        for (int i = 0; i < speedBarImages.Count; i++)
+        {
+            speedBarTweens.Add(null);
+        }
     }
 
     // Update is called once per frame
@@ -145,11 +163,13 @@ public class TurningScript : MonoBehaviour
         if (leanChanged) UpdateLean();
         Move();
         UpdateScore();
+        UpdateSpeedBar();
     }
 
     private void UpdateScore()
     {
-        CurrentScore += (int)(currentSpeed * Time.fixedDeltaTime * baseDistanceScoreMultiplier * currentScoreMultiplier);
+        scoreElapsedTime += Time.fixedDeltaTime * currentScoreMultiplier;
+        CurrentScore = Mathf.FloorToInt(scoreElapsedTime * timeToScoreRatio);
     }
 
     private void Move()
@@ -266,6 +286,7 @@ public class TurningScript : MonoBehaviour
         playerCamera.fieldOfView = currentFOV;
         MaxSideSpeed = SideSpeedLevels[CurrentSpeedLevel];
         currentTime = 0;
+        UpdateSpeedBarVisibility();
         return true;
     }
 
@@ -293,5 +314,49 @@ public class TurningScript : MonoBehaviour
         }
         MaxSideSpeed = SideSpeedLevels[CurrentSpeedLevel];
         pickupParticles.Play();
+        UpdateSpeedBarVisibility();
+    }
+
+    private void UpdateSpeedBarVisibility()
+    {
+        for (int i = 0; i < speedBarImages.Count; i++)
+        {
+            if (i < CurrentSpeedLevel)
+            {
+                // Show previous levels at full size
+                AnimateSpeedBar(i, maxBarScale);
+            }
+            else if (i == CurrentSpeedLevel)
+            {
+                // Let UpdateSpeedBar() handle the scaling for current level
+                // But make sure it's visible initially
+                AnimateSpeedBar(i, maxBarScale);
+            }
+            else
+            {
+                // Hide future levels
+                AnimateSpeedBar(i, minBarScale);
+            }
+        }
+
+        lastSpeedLevel = CurrentSpeedLevel;
+    }
+
+    private void AnimateSpeedBar(int index, Vector3 targetScale, float duration = 0.25f)
+    {
+        if (speedBarTweens[index] != null && speedBarTweens[index].IsActive())
+            speedBarTweens[index].Kill();
+
+        speedBarTweens[index] = speedBarImages[index].rectTransform.DOScale(targetScale, duration).SetEase(Ease.OutQuad);
+    }
+
+    private void UpdateSpeedBar()
+    {
+        if (CurrentSpeedLevel >= speedBarImages.Count) return;
+
+        float ratio = Mathf.Clamp01((SpeedDecreaseTime - currentTime) / SpeedDecreaseTime);
+        Vector3 targetScale = Vector3.Lerp(minBarScale, maxBarScale, ratio);
+
+        AnimateSpeedBar(CurrentSpeedLevel, targetScale, 0.1f);
     }
 }

@@ -33,7 +33,8 @@ public class TileLoop : MonoBehaviour
             //baseFlySpeed = ts.FlySpeed;
         }
     }
-    private void OnTriggerEnter(Collider other)
+
+    private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
@@ -67,22 +68,49 @@ public class TileLoop : MonoBehaviour
                     );
                 }
             }
+        }
+        }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
             // FrontDetection
-            else if (gameObject.name == "FrontDetection")
+            if (gameObject.name == "FrontDetection")
             {
                 Vector3 currentPos = gameObject.transform.parent.parent.position;
                 if (tilePrefabs != null && tilePrefabs.Count > 0)
                 {
                     int randomIndex = UnityEngine.Random.Range(0, tilePrefabs.Count);
                     GameObject randomPrefab = tilePrefabs[randomIndex];
+                    float scaleZ;
 
-                    float scaleZ = zScaleFactor * (ts.SpeedLevels[ts.CurrentSpeedLevel] / baseFlySpeed);
+                    switch (ts.CurrentSpeedLevel)
+                    {
+                        case 0:
+                            scaleZ = 0.9f; // Example value for speed level 0
+                            break;
+                        case 1:
+                            scaleZ = 0.91f; // Example value for speed level 1
+                            break;
+                        case 2:
+                            scaleZ = 0.92f; // Example value for speed level 2
+                            break;
+                        case 3:
+                            scaleZ = 0.94f; // Example value for speed level 3
+                            break;
+                        case 4:
+                            scaleZ = 0.94f; // Example value for speed level 4
+                            break;
+                        default:
+                            scaleZ = 1.0f; // Fallback value
+                            break;
+                    }
                     Vector3 spawnPos = new Vector3(currentPos.x, currentPos.y, manager.nextSpawn.transform.position.z);
 
                     SpawnStretchedTile(randomPrefab, spawnPos, scaleZ);
 
                     manager.LastSpawned = randomIndex;
-                    manager.CurrentLevel = ts.CurrentSpeedLevel;
+                    manager.CurrentLevel = scaleZ;
                 }
             }
 
@@ -93,9 +121,11 @@ public class TileLoop : MonoBehaviour
                 if (tilePrefabsR != null && tilePrefabsR.Count > 0)
                 {
                     int randomIndex = manager.LastSpawned;
+                    Debug.Log(randomIndex + " " +tilePrefabsR[0]);
                     GameObject randomPrefab = tilePrefabsR[randomIndex];
 
-                    float scaleZ = zScaleFactor * (ts.SpeedLevels[manager.CurrentLevel] / baseFlySpeed);
+                    float scaleZ = manager.CurrentLevel;
+
                     Vector3 spawnPos = new Vector3(currentPos.x, currentPos.y, manager.nextSpawnR.transform.position.z);
 
                     SpawnStretchedTile(randomPrefab, spawnPos, scaleZ);

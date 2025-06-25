@@ -2,6 +2,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
+using UnityEngine.Windows.Speech;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,10 +14,16 @@ public class GameManager : MonoBehaviour
     public GameObject HealthBar;
     public GameObject DeathScreen;
     public GameObject Score;
+    public GameObject Multi;
+    public GameObject SpeedIndicators;
 
     public TextMeshProUGUI FinalScore;
 
     private TextMeshProUGUI ScoreText;
+
+    private TextMeshProUGUI MultiText;
+
+    public TextMeshProUGUI speedText;
 
     private bool gameRunning = true;
 
@@ -34,18 +42,65 @@ public class GameManager : MonoBehaviour
     public RawImage[] leftImages;
     public RawImage[] rightImages;
 
+    private float lastMultiplier = 1.0f;
+    private Tween multiTextTween;
+
     void Start()
     {
         Instance = this;
         ScoreText = Score.GetComponentInChildren<TextMeshProUGUI>();
         ScoreText.text = "0";
+
+        MultiText = Multi.GetComponentInChildren<TextMeshProUGUI>();
+        MultiText.text = "";
     }
 
     public void FixedUpdate()
     {
         if (gameRunning)
         {
-            ScoreText.text = playerMovement.CurrentScore.ToString() + " x" + playerMovement.currentScoreMultiplier;
+            //ScoreText.text = playerMovement.CurrentScore.ToString() + " x" + playerMovement.currentScoreMultiplier;
+            ScoreText.text = playerMovement.CurrentScore.ToString();
+            float multiplier = playerMovement.currentScoreMultiplier;
+
+            if (playerMovement.CurrentSpeedLevel != 4)
+            {
+                speedText.text = "speed " + (playerMovement.CurrentSpeedLevel + 1);
+            }
+            else
+            {
+                speedText.text = "speed MAX";
+            }
+            
+
+            if (multiplier > 1.0f)
+            {
+                Multi.SetActive(true);
+
+                // Only animate if multiplier changed
+                if (Mathf.Abs(multiplier - lastMultiplier) > Mathf.Epsilon)
+                {
+                    MultiText.text = multiplier.ToString("F0") + "x";
+
+                    // Animate scale
+                    if (multiTextTween != null && multiTextTween.IsActive())
+                        multiTextTween.Kill();
+
+                    MultiText.rectTransform.localScale = Vector3.one * 3f; // reset
+                    multiTextTween = MultiText.rectTransform.DOPunchScale(Vector3.one * 0.5f, 0.5f, 1, 0.5f);
+
+                    // Change color to redder with higher multiplier (cap at 5x)
+                    float t = Mathf.InverseLerp(1f, 5f, multiplier); // 1x = white, 5x = red
+                    MultiText.color = Color.Lerp(Color.white, Color.red, t);
+
+                    lastMultiplier = multiplier;
+                }
+            }
+            else
+            {
+                Multi.SetActive(false);
+                lastMultiplier = 1.0f;
+            }
         }
          switch (playerMovement.currentScoreMultiplier)
             {
@@ -106,6 +161,9 @@ public class GameManager : MonoBehaviour
         HealthBar.SetActive(false);
         DeathScreen.SetActive(true);
         Score.SetActive(false);
+        Multi.SetActive(false);
+        SpeedIndicators.SetActive(false);
+        speedText.text = "";
         hideAllSprites();
         FinalScore.text = "Final Score: " + playerMovement.CurrentScore.ToString();
         if(Leaderboard.Instance != null)

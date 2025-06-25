@@ -4,19 +4,22 @@ public class ScoreCounter : MonoBehaviour
 {
     public static ScoreCounter Instance;
 
-    private Vector3 startPosition;
+    public float TimeToScoreRatio = 1.0f; // Points per second
 
-    public float DistanceToScoreRatio;
+    private float elapsedTime = 0f;
 
     void Start()
     {
         Instance = this;
-        startPosition = transform.position;
+    }
+
+    void Update()
+    {
+        elapsedTime += Time.deltaTime;
     }
 
     public int GetScore()
     {
-        return (int)((transform.position - startPosition).magnitude * DistanceToScoreRatio);
+        return Mathf.FloorToInt(elapsedTime * TimeToScoreRatio);
     }
-
 }

@@ -12,5 +12,5 @@ public class TileManager : MonoBehaviour
     public float zScaleFactor;
 
     public int LastSpawned = 100;
-    public int CurrentLevel = 0;
+    public float CurrentLevel = 0;
 }
