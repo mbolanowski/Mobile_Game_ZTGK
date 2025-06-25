@@ -76,12 +76,13 @@ public class TileLoop : MonoBehaviour
                     int randomIndex = UnityEngine.Random.Range(0, tilePrefabs.Count);
                     GameObject randomPrefab = tilePrefabs[randomIndex];
 
-                    float scaleZ = zScaleFactor * (ts.currentSpeed / baseFlySpeed);
+                    float scaleZ = zScaleFactor * (ts.SpeedLevels[ts.CurrentSpeedLevel] / baseFlySpeed);
                     Vector3 spawnPos = new Vector3(currentPos.x, currentPos.y, manager.nextSpawn.transform.position.z);
 
                     SpawnStretchedTile(randomPrefab, spawnPos, scaleZ);
 
                     manager.LastSpawned = randomIndex;
+                    manager.CurrentLevel = ts.CurrentSpeedLevel;
                 }
             }
 
@@ -94,7 +95,7 @@ public class TileLoop : MonoBehaviour
                     int randomIndex = manager.LastSpawned;
                     GameObject randomPrefab = tilePrefabsR[randomIndex];
 
-                    float scaleZ = zScaleFactor * (ts.currentSpeed / baseFlySpeed);
+                    float scaleZ = zScaleFactor * (ts.SpeedLevels[manager.CurrentLevel] / baseFlySpeed);
                     Vector3 spawnPos = new Vector3(currentPos.x, currentPos.y, manager.nextSpawnR.transform.position.z);
 
                     SpawnStretchedTile(randomPrefab, spawnPos, scaleZ);
@@ -123,6 +124,14 @@ public class TileLoop : MonoBehaviour
                 localPos.z *= scaleZ;
                 child.localPosition = localPos;
             }
+        }
+        Transform pickUpSpawner = instance.transform.Find("PickUpSpawner");
+        if (pickUpSpawner != null)
+        {
+            Vector3 pickUpSpawnerScale = pickUpSpawner.localScale;
+            pickUpSpawnerScale.z *= scaleZ;
+            pickUpSpawner.localScale = pickUpSpawnerScale;
+
         }
 
         // Find the specific child named "Detections" and scale it

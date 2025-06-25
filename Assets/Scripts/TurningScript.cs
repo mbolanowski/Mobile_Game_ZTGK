@@ -82,8 +82,9 @@ public class TurningScript : MonoBehaviour
     public float currentSpeed;
     public float currentFOV;
     public float currentScoreMultiplier = 1.0f;
+
     [SerializeField]
-    private int CurrentSpeedLevel;
+    public int CurrentSpeedLevel;
 
     private Coroutine currentBoost;
 
