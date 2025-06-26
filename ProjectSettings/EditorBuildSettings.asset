@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FreeFly.unity
     guid: a80ea6e635e7e674e9d2f14df64a9785
+  - enabled: 1
+    path: Assets/Scenes/FreeFlyNoTutorial.unity
+    guid: 23ac196719446594c8a700b9624c26ca
   m_configObjects:
     com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: 317a26ce4b6d9644ba9f8747b6b8d0d3, type: 2}
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: ac0b362e69b3e3643bdda56e34f74c64, type: 2}

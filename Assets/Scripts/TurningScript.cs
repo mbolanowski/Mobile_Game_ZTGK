@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections.Generic;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class TurningScript : MonoBehaviour
 {
@@ -79,6 +80,9 @@ public class TurningScript : MonoBehaviour
     public float[] particleEmissions;
     public float[] particleLengths;
 
+    public Light pl;
+    public float[] lightIntensities;
+    public float[] lightRanges;
 
 
     public float[] speedDeacreaseTimes;
@@ -303,6 +307,7 @@ public float timeToScoreRatio = 1.0f;
         currentTime = 0;
         UpdateSpeedBarVisibility();
         UpdateParticleSettings();
+        //UpdateLight();
         return true;
     }
 
@@ -332,6 +337,7 @@ public float timeToScoreRatio = 1.0f;
         pickupParticles.Play();
         UpdateSpeedBarVisibility();
         UpdateParticleSettings();
+        //UpdateLight();
     }
 
     private void UpdateSpeedBarVisibility()
@@ -365,7 +371,19 @@ public float timeToScoreRatio = 1.0f;
             speedBarTweens[index].Kill();
 
         speedBarTweens[index] = speedBarImages[index].rectTransform.DOScale(targetScale, duration).SetEase(Ease.OutQuad);
+
+        // Only flash green/red for appear/disappear cases, NOT for current bar
+        if (index != CurrentSpeedLevel)
+        {
+            UnityEngine.Color flashColor = targetScale == maxBarScale ? UnityEngine.Color.green : UnityEngine.Color.red;
+            RawImage img = speedBarImages[index];
+
+            img.DOKill(true); // Cancel any color tweens
+            img.color = flashColor;
+            img.DOColor(UnityEngine.Color.white, 1f).SetEase(Ease.OutQuad);
+        }
     }
+
 
     private void UpdateSpeedBar()
     {
@@ -373,9 +391,12 @@ public float timeToScoreRatio = 1.0f;
 
         float levelDecreaseTime = speedDeacreaseTimes[CurrentSpeedLevel];
         float ratio = Mathf.Clamp01((levelDecreaseTime - currentTime) / levelDecreaseTime);
-        Vector3 targetScale = Vector3.Lerp(minBarScale, maxBarScale, ratio);
 
+        Vector3 targetScale = Vector3.Lerp(minBarScale, maxBarScale, ratio);
         AnimateSpeedBar(CurrentSpeedLevel, targetScale, 0.1f);
+
+        // Gradually fade to red as it nears expiration
+        UpdateSpeedBarColor(CurrentSpeedLevel, ratio);
     }
 
     private void UpdateParticleSettings()
@@ -387,5 +408,22 @@ public float timeToScoreRatio = 1.0f;
 
         var emission = ps.emission;
         emission.rateOverTime = particleEmissions[CurrentSpeedLevel];
+    }
+
+    private void UpdateLight()
+    {
+        if (pl == null || CurrentSpeedLevel >= lightIntensities.Length) return;
+
+        pl.intensity = lightIntensities[CurrentSpeedLevel];
+        pl.range = lightRanges[CurrentSpeedLevel];
+    }
+
+    private void UpdateSpeedBarColor(int index, float ratio)
+    {
+        if (index >= speedBarImages.Count) return;
+
+        RawImage img = speedBarImages[index];
+        UnityEngine.Color targetColor = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.white, ratio); // red when about to expire
+        img.color = targetColor;
     }
 }

@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
-using UnityEngine.Windows.Speech;
 using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
@@ -26,7 +25,9 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI speedText;
 
-    private bool gameRunning = true;
+    public bool gameRunning = true;
+
+    public bool tutorial;
 
     public Animator animator;
 
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI HighScore;
     public TextMeshProUGUI info;
     public TextMeshProUGUI percent;
+    public TextMeshProUGUI AllEntries;
     public RawImage distance;
     public RawImage timeBarFill;
 
@@ -53,6 +55,8 @@ public class GameManager : MonoBehaviour
     private float elapsedTime = 0f;
     public float maxGameTime = 120f;
 
+    public WallMover wall;
+
     void Start()
     {
         Instance = this;
@@ -67,24 +71,30 @@ public class GameManager : MonoBehaviour
     {
         if (gameRunning)
         {
-            elapsedTime += Time.fixedDeltaTime;
-            float percentElapsed = (elapsedTime / maxGameTime) * 100f;
-            percent.text = percentElapsed.ToString("F0") + "%";
+            if (!tutorial)
+            {
+                elapsedTime += Time.fixedDeltaTime;
+                float percentElapsed = (elapsedTime / maxGameTime) * 100f;
+                if (percentElapsed < 100f)
+                {
+                    percent.text = percentElapsed.ToString("F0") + "%";
+                }
 
-            float progress = Mathf.Clamp01(elapsedTime / maxGameTime);
-            // Tween the timeBarFill scale smoothly
-            Vector3 targetScale = new Vector3(progress * 6.45f, 0.1f, 0.23f);
-            timeBarFill.rectTransform.DOScale(targetScale, 0.3f).SetEase(Ease.Linear);
+                float progress = Mathf.Clamp01(elapsedTime / maxGameTime);
+                // Tween the timeBarFill scale smoothly
+                Vector3 targetScale = new Vector3(progress * 6.45f, 0.1f, 0.23f);
+                timeBarFill.rectTransform.DOScale(targetScale, 0.3f).SetEase(Ease.Linear);
 
-            float newX = Mathf.Lerp(-43f, 605f, progress);
+                float newX = Mathf.Lerp(-43f, 605f, progress);
 
-            Vector2 pos = percent.rectTransform.anchoredPosition;
-            pos.x = newX;
-            percent.rectTransform.anchoredPosition = pos;
+                Vector2 pos = percent.rectTransform.anchoredPosition;
+                pos.x = newX;
+                percent.rectTransform.anchoredPosition = pos;
+            }
 
             if (elapsedTime >= maxGameTime)
             {
-                GameWon();
+                wall.WallMove();
                 return;
             }
             //ScoreText.text = playerMovement.CurrentScore.ToString() + " x" + playerMovement.currentScoreMultiplier;
@@ -130,54 +140,6 @@ public class GameManager : MonoBehaviour
                 lastMultiplier = 1.0f;
             }
         }
-         switch (playerMovement.currentScoreMultiplier)
-            {
-                case 1.0f:
-                {
-                    leftImages[0].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
-                    leftImages[1].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
-                    leftImages[2].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
-                    rightImages[0].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
-                    rightImages[1].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
-                    rightImages[2].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
-                    break;
-                }
-                case 2.0f:
-                {
-                    float scale = (playerMovement.SpeedDecreaseTime - playerMovement.currentTime) / playerMovement.SpeedDecreaseTime;
-                    leftImages[0].rectTransform.localScale = new Vector3(scale, scale, scale);
-                    leftImages[1].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
-                    leftImages[2].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
-                    rightImages[0].rectTransform.localScale = new Vector3(scale, scale, scale);
-                    rightImages[1].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
-                    rightImages[2].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
-                    break;
-                }
-                case 3.0f:
-                {
-                    float scale = (playerMovement.SpeedDecreaseTime - playerMovement.currentTime) / playerMovement.SpeedDecreaseTime;
-                    leftImages[0].rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    leftImages[1].rectTransform.localScale = new Vector3(scale, scale, scale);
-                    leftImages[2].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
-                    rightImages[0].rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    rightImages[1].rectTransform.localScale = new Vector3(scale, scale, scale);
-                    rightImages[2].rectTransform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
-                    break;
-                }
-                case 4.0f:
-                {
-                    float scale = (playerMovement.SpeedDecreaseTime - playerMovement.currentTime) / playerMovement.SpeedDecreaseTime;
-                    leftImages[0].rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    leftImages[1].rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    leftImages[2].rectTransform.localScale = new Vector3(scale, scale, scale);
-                    rightImages[0].rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    rightImages[1].rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    rightImages[2].rectTransform.localScale = new Vector3(scale, scale, scale);
-                    break;
-                }
-                default:
-                    break;
-            }
         
     }
 
@@ -194,6 +156,7 @@ public class GameManager : MonoBehaviour
         distance.gameObject.SetActive(false);
         timeBarFill.gameObject.SetActive(false);
         info.text = "Game Over";
+        info.color = new Color(0.8566f, 0.3410252f, 0.3410252f, 1.0f); // Red color
         speedText.text = "";
         percent.text = "";
         hideAllSprites();
@@ -201,8 +164,9 @@ public class GameManager : MonoBehaviour
         if(Leaderboard.Instance != null)
         {
             if(Leaderboard.Instance.currentUserScore < playerMovement.CurrentScore) Leaderboard.Instance.currentUserScore = playerMovement.CurrentScore;
-            CurrentPlacement.text = Leaderboard.Instance.GetCurrentScorePlace().ToString();
+            CurrentPlacement.text = Leaderboard.Instance.GetCurrentScorePlace().ToString() + "th";
             HighScore.text = "High Score: " + Leaderboard.Instance.currentUserScore.ToString();
+            AllEntries.text = "/" + (Leaderboard.Instance.playerScores.Count + 1).ToString();
         }
         
     }
@@ -219,6 +183,7 @@ public class GameManager : MonoBehaviour
         distance.gameObject.SetActive(false);
         timeBarFill.gameObject.SetActive(false);
         info.text = "You Won";
+        info.color = new Color(0.5455215f, 0.9471698f, 0.4843075f, 1.0f); // Red color
         speedText.text = "";
         percent.text = "";
         hideAllSprites();
@@ -228,8 +193,10 @@ public class GameManager : MonoBehaviour
             if (Leaderboard.Instance.currentUserScore < playerMovement.CurrentScore)
                 Leaderboard.Instance.currentUserScore = playerMovement.CurrentScore;
 
-            CurrentPlacement.text = Leaderboard.Instance.GetCurrentScorePlace().ToString();
+            if (Leaderboard.Instance.currentUserScore < playerMovement.CurrentScore) Leaderboard.Instance.currentUserScore = playerMovement.CurrentScore;
+            CurrentPlacement.text = Leaderboard.Instance.GetCurrentScorePlace().ToString() + "th";
             HighScore.text = "High Score: " + Leaderboard.Instance.currentUserScore.ToString();
+            AllEntries.text = "/" + (Leaderboard.Instance.playerScores.Count + 1).ToString();
         }
     }
 
@@ -246,7 +213,7 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(3);
     }
 
     public void Exit()
